@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGBRIEF — We Fix the Leak in Your Trades Business</title>
+    <meta name="description" content="Operational consulting for trades businesses. We find your biggest bottleneck and fix it in 7 days. HVAC, Plumbing, Electrical, Roofing.">
+    <meta property="og:title" content="LOGBRIEF — Operational Consulting for the Trades">
+    <meta property="og:description" content="We diagnose your #1 bottleneck and deploy a working fix in 7 days. $3,500. Money-back guarantee.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-panel: rgba(255,255,255,0.04);
+            --bg-panel-hover: rgba(255,255,255,0.07);
+            --white: #ffffff;
+            --text: #e6edf3;
+            --text-dim: #8b949e;
+            --text-muted: #484f58;
+            --accent: #58a6ff;
+            --accent-bright: #79c0ff;
+            --accent-glow: rgba(88,166,255,0.25);
+            --green: #3fb950;
+            --green-glow: rgba(63,185,80,0.2);
+            --orange: #d29922;
+            --pink: #f778ba;
+            --border: rgba(255,255,255,0.08);
+            --font: 'Inter', -apple-system, sans-serif;
+            --mono: 'Space Mono', monospace;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ═══════ INTRO SCREEN (Kestrel-style gate) ═══════ */
+        .intro {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 32px;
+            cursor: pointer;
+            transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
+        }
+        .intro.gone {
+            opacity: 0;
+            transform: scale(1.05);
+            pointer-events: none;
+        }
+
+        .intro-ring {
+            width: 160px;
+            height: 160px;
+            position: relative;
+        }
+        .intro-ring svg {
+            width: 100%;
+            height: 100%;
+            animation: spin 8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .intro-ring .inner-icon {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+        }
+
+        .intro-text {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            animation: blink-cursor 1.2s step-end infinite;
+        }
+        @keyframes blink-cursor {
+            50% { opacity: 0.4; }
+        }
+
+        .intro-skip {
+            position: absolute;
+            bottom: 40px;
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ═══════ MAIN (hidden until intro dismissed) ═══════ */
+        .main {
+            opacity: 0;
+            transition: opacity 0.8s 0.3s;
+            height: 100vh;
+            height: 100dvh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+        }
+        .main.active {
+            opacity: 1;
+        }
+
+        .page {
+            min-height: 100vh;
+            min-height: 100dvh;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* ═══════ PAGE 1: HERO ═══════ */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+        }
+
+        .hero-left {
+            padding: clamp(60px, 8vh, 100px) clamp(32px, 5vw, 80px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.4s forwards;
+        }
+        .hero-eyebrow .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 var(--green-glow); }
+            50% { box-shadow: 0 0 0 8px transparent; }
+        }
+
+        .hero-heading {
+            font-size: clamp(2.8rem, 5.5vw, 5rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.6s forwards;
+        }
+        .hero-heading .rotate-wrap {
+            display: inline-block;
+            position: relative;
+            height: 1.05em;
+            overflow: hidden;
+            vertical-align: bottom;
+        }
+        .hero-heading .rotate-wrap span {
+            display: block;
+            position: absolute;
+            left: 0; top: 0;
+            color: var(--accent);
+            opacity: 0;
+            transform: translateY(110%);
+            transition: all 0.5s cubic-bezier(.16,1,.3,1);
+        }
+        .hero-heading .rotate-wrap span.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hero-heading .rotate-wrap span.out {
+            opacity: 0;
+            transform: translateY(-110%);
+        }
+
+        .hero-sub {
+            font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+            color: var(--text-dim);
+            line-height: 1.75;
+            max-width: 480px;
+            margin-bottom: 36px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.8s forwards;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.8s 1s forwards;
+        }
+
+        .hero-proof {
+            margin-top: auto;
+            padding-top: 32px;
+            display: flex;
+            gap: 40px;
+            opacity: 0;
+            animation: fadeUp 0.8s 1.2s forwards;
+        }
+        .proof-item {
+            text-align: left;
+        }
+        .proof-value {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .proof-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero right — animated graphic */
+        .hero-right {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-right::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: breathe 6s ease-in-out infinite;
+        }
+        @keyframes breathe {
+            0%, 100% { transform: scale(0.9); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-graphic {
+            position: relative;
+            width: 420px;
+            height: 420px;
+            z-index: 2;
+        }
+
+        /* Animated diagnostic ring */
+        .diag-ring {
+            position: absolute;
+            inset: 0;
+            animation: spin 20s linear infinite;
+        }
+
+        /* Center hub */
+        .center-hub {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            backdrop-filter: blur(20px);
+            z-index: 3;
+        }
+        .center-hub .hub-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--green);
+            line-height: 1;
+        }
+        .center-hub .hub-label {
+            font-family: var(--mono);
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* Floating orbit cards */
+        .orbit-card {
+            position: absolute;
+            background: rgba(13,17,23,0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 18px;
+            z-index: 4;
+            animation: float-card 5s ease-in-out infinite;
+            white-space: nowrap;
+        }
+        .orbit-card .oc-icon {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+        .orbit-card .oc-title {
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-bottom: 2px;
+        }
+        .orbit-card .oc-stat {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--accent);
+        }
+
+        .orbit-card:nth-child(2) { top: 8%; right: 8%; animation-delay: 0s; }
+        .orbit-card:nth-child(3) { top: 55%; right: 2%; animation-delay: -1.5s; }
+        .orbit-card:nth-child(4) { bottom: 8%; left: 12%; animation-delay: -3s; }
+        .orbit-card:nth-child(5) { top: 15%; left: 2%; animation-delay: -4s; }
+
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ═══════ PAGE 2: THE OFFER (compact) ═══════ */
+        .offer {
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(60px, 8vh, 100px) clamp(32px, 5vw, 80px);
+        }
+
+        .offer-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2px;
+            margin-bottom: 40px;
+            max-width: 1100px;
+        }
+
+        .offer-step {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 32px 28px;
+            transition: all 0.4s;
+            position: relative;
+        }
+        .offer-step:hover {
+            background: var(--bg-panel-hover);
+            border-color: var(--accent);
+        }
+        .offer-step:hover .step-icon {
+            transform: scale(1.1);
+        }
+
+        .step-num {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            display: block;
+            transition: transform 0.3s;
+        }
+        .offer-step h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-bottom: 8px;
+        }
+        .offer-step p {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        .offer-bottom {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            max-width: 1100px;
+        }
+
+        .price-block {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 32px 28px;
+            transition: all 0.4s;
+            display: flex;
+            flex-direction: column;
+        }
+        .price-block:hover {
+            background: var(--bg-panel-hover);
+        }
+        .price-block--accent {
+            border-color: var(--accent);
+        }
+
+        .price-tag {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .price-big {
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
+        .price-list {
+            list-style: none;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .price-list li {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .price-list li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .offer-guarantee {
+            max-width: 1100px;
+            margin-top: 2px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 18px 28px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+        }
+        .offer-guarantee .accent { color: var(--accent); }
+
+        /* ═══════ PAGE 3: BOOK (compact) ═══════ */
+        .book-page {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: clamp(60px, 8vh, 100px) clamp(32px, 5vw, 80px);
+        }
+
+        .book-heading {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .book-heading .accent { color: var(--accent); }
+
+        .book-sub {
+            font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+            color: var(--text-dim);
+            max-width: 500px;
+            margin-bottom: 36px;
+            line-height: 1.7;
+        }
+
+        .book-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .book-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            max-width: 600px;
+            width: 100%;
+            text-align: left;
+        }
+        .book-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.4s;
+        }
+        .book-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+        .book-card h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .book-card p {
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .book-email {
+            margin-top: 32px;
+        }
+        .book-email span {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .book-email a {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 2px;
+        }
+
+        .book-footer {
+            position: absolute;
+            bottom: 24px;
+            left: 0; right: 0;
+            text-align: center;
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        /* ═══════ BUTTONS ═══════ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 14px 32px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.35s cubic-bezier(.16,1,.3,1);
+            white-space: nowrap;
+        }
+        .btn--accent {
+            background: var(--accent);
+            color: var(--bg);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .btn--accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px var(--accent-glow), 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .btn--ghost {
+            background: var(--bg-panel);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn--ghost:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .btn--sm {
+            padding: 10px 20px;
+            font-size: 0.75rem;
+        }
+
+        /* ═══════ NAV (inside main) ═══════ */
+        .topbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 50;
+            padding: 16px clamp(32px, 5vw, 80px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .topbar.visible { opacity: 1; pointer-events: auto; }
+        .topbar-logo {
+            font-family: var(--mono);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+        }
+        .topbar-link {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        .topbar-link:hover {
+            background: white;
+            color: black;
+        }
+
+        /* ═══════ SCROLL INDICATOR DOTS ═══════ */
+        .scroll-dots {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 60;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .scroll-dots.visible { opacity: 1; }
+        .scroll-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .scroll-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent-glow);
+            transform: scale(1.3);
+        }
+
+        /* ═══════ RESPONSIVE ═══════ */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .hero-right {
+                display: none;
+            }
+            .offer-top {
+                grid-template-columns: 1fr;
+            }
+            .offer-bottom {
+                grid-template-columns: 1fr;
+            }
+            .book-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-ctas {
+                flex-direction: column;
+            }
+            .btn { width: 100%; justify-content: center; }
+            .hero-proof { flex-direction: column; gap: 16px; }
+            .book-actions { flex-direction: column; }
+            .scroll-dots { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════ INTRO GATE ═══════ -->
+<div class="intro" id="intro">
+    <div class="intro-ring">
+        <svg viewBox="0 0 160 160" fill="none">
+            <circle cx="80" cy="80" r="74" stroke="url(#grad)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.4"/>
+            <circle cx="80" cy="80" r="60" stroke="url(#grad)" stroke-width="1" stroke-dasharray="3 8" opacity="0.25"/>
+            <circle cx="80" cy="80" r="50" stroke="#58a6ff" stroke-width="2" stroke-dasharray="120 380" stroke-linecap="round"/>
+            <defs>
+                <linearGradient id="grad" x1="0" y1="0" x2="160" y2="160">
+                    <stop offset="0%" stop-color="#58a6ff"/>
+                    <stop offset="50%" stop-color="#f778ba"/>
+                    <stop offset="100%" stop-color="#3fb950"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <div class="inner-icon">⚡</div>
+    </div>
+    <div class="intro-text">Enter Logbrief</div>
+    <div class="intro-skip">Click anywhere</div>
+</div>
+
+<!-- ═══════ TOP BAR ═══════ -->
+<div class="topbar" id="topbar">
+    <a href="#" class="topbar-logo">LOGBRIEF</a>
+    <a href="#book" class="topbar-link">Schedule Audit</a>
+</div>
+
+<!-- ═══════ SCROLL DOTS ═══════ -->
+<div class="scroll-dots" id="scrollDots">
+    <div class="scroll-dot active" data-page="0"></div>
+    <div class="scroll-dot" data-page="1"></div>
+    <div class="scroll-dot" data-page="2"></div>
+</div>
+
+<!-- ═══════ MAIN CONTENT ═══════ -->
+<div class="main" id="main">
+
+    <!-- PAGE 1: HERO -->
+    <section class="page hero" id="home">
+        <div class="hero-left">
+            <div class="hero-eyebrow">
+                <span class="pulse-dot"></span>
+                Operations consulting for the trades
+            </div>
+            <h1 class="hero-heading">
+                Your
+                <span class="rotate-wrap"><span class="active">HVAC</span><span>Plumbing</span><span>Electrical</span><span>Roofing</span></span><br>
+                business is<br>
+                bleeding money.
+            </h1>
+            <p class="hero-sub">
+                We find the #1 bottleneck — missed calls, slow follow-ups, manual chaos — and deploy a working fix in 7 days. Not a pitch deck. A working system.
+            </p>
+            <div class="hero-ctas">
+                <a href="#book" class="btn btn--accent">Schedule Your Audit →</a>
+                <a href="#offer" class="btn btn--ghost">See How It Works</a>
+            </div>
+            <div class="hero-proof">
+                <div class="proof-item">
+                    <div class="proof-value">7 days</div>
+                    <div class="proof-label">Avg. deployment</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-value">$3,500</div>
+                    <div class="proof-label">Fixed price</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-value">100%</div>
+                    <div class="proof-label">Money-back guarantee</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <!-- Animated diagnostic graphic -->
+            <div class="hero-graphic">
+                <svg class="diag-ring" viewBox="0 0 420 420" fill="none">
+                    <circle cx="210" cy="210" r="200" stroke="url(#ring-grad)" stroke-width="0.5" stroke-dasharray="4 8" opacity="0.3"/>
+                    <circle cx="210" cy="210" r="170" stroke="url(#ring-grad)" stroke-width="0.5" stroke-dasharray="4 6" opacity="0.2"/>
+                    <circle cx="210" cy="210" r="140" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="180 720" stroke-linecap="round" opacity="0.6"/>
+                    <circle cx="210" cy="210" r="170" stroke="#3fb950" stroke-width="1" stroke-dasharray="100 970" stroke-linecap="round" opacity="0.4"/>
+                    <!-- axis ticks -->
+                    <line x1="210" y1="10" x2="210" y2="30" stroke="#58a6ff" stroke-width="1" opacity="0.3"/>
+                    <line x1="210" y1="390" x2="210" y2="410" stroke="#58a6ff" stroke-width="1" opacity="0.3"/>
+                    <line x1="10" y1="210" x2="30" y2="210" stroke="#58a6ff" stroke-width="1" opacity="0.3"/>
+                    <line x1="390" y1="210" x2="410" y2="210" stroke="#58a6ff" stroke-width="1" opacity="0.3"/>
+                    <!-- small nodes -->
+                    <circle cx="210" cy="10" r="3" fill="#58a6ff" opacity="0.5"/>
+                    <circle cx="10" cy="210" r="3" fill="#3fb950" opacity="0.5"/>
+                    <circle cx="380" cy="100" r="2" fill="#f778ba" opacity="0.6"/>
+                    <circle cx="60" cy="340" r="2" fill="#d29922" opacity="0.6"/>
+                    <defs>
+                        <linearGradient id="ring-grad" x1="0" y1="0" x2="420" y2="420">
+                            <stop offset="0%" stop-color="#58a6ff"/>
+                            <stop offset="50%" stop-color="#f778ba"/>
+                            <stop offset="100%" stop-color="#3fb950"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="center-hub">
+                    <div class="hub-value">↑ 34%</div>
+                    <div class="hub-label">Revenue recovered</div>
+                </div>
+                <!-- floating stat cards -->
+                <div class="orbit-card">
+                    <div class="oc-icon">📞</div>
+                    <div class="oc-title">Missed Calls</div>
+                    <div class="oc-stat">Recovered → 98% answer rate</div>
+                </div>
+                <div class="orbit-card">
+                    <div class="oc-icon">⚡</div>
+                    <div class="oc-title">Response Time</div>
+                    <div class="oc-stat">4hr → under 60 seconds</div>
+                </div>
+                <div class="orbit-card">
+                    <div class="oc-icon">💰</div>
+                    <div class="oc-title">Rebates Unlocked</div>
+                    <div class="oc-stat">$0 → $3K–$8K per customer</div>
+                </div>
+                <div class="orbit-card">
+                    <div class="oc-icon">📊</div>
+                    <div class="oc-title">Pipeline</div>
+                    <div class="oc-stat">Sticky notes → Live CRM</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 2: THE OFFER -->
+    <section class="page offer" id="offer">
+        <div class="offer-top">
+            <div class="offer-step">
+                <div class="step-num">Step 01</div>
+                <span class="step-icon">🔍</span>
+                <h3>Diagnose</h3>
+                <p>We audit your entire operation and find the single biggest revenue leak.</p>
+            </div>
+            <div class="offer-step">
+                <div class="step-num">Step 02</div>
+                <span class="step-icon">🛠️</span>
+                <h3>Build</h3>
+                <p>We deploy a custom fix — AI receptionist, automated follow-ups, rebate system, CRM — whatever the audit reveals.</p>
+            </div>
+            <div class="offer-step">
+                <div class="step-num">Step 03</div>
+                <span class="step-icon">🚀</span>
+                <h3>Launch</h3>
+                <p>Live in your business in 7 days with 30 days of support. Not a PDF — a working system.</p>
+            </div>
+        </div>
+        <div class="offer-bottom">
+            <div class="price-block price-block--accent">
+                <div class="price-tag">Standard</div>
+                <div class="price-big">$3,500</div>
+                <ul class="price-list">
+                    <li>Full operational audit</li>
+                    <li>Custom solution built & deployed</li>
+                    <li>30 days post-launch support</li>
+                    <li>Name-your-price guarantee</li>
+                </ul>
+                <a href="#book" class="btn btn--accent btn--sm">Get Started →</a>
+            </div>
+            <div class="price-block">
+                <div class="price-tag">On-Site</div>
+                <div class="price-big">$5,000</div>
+                <ul class="price-list">
+                    <li>Everything in Standard</li>
+                    <li>We fly out to you</li>
+                    <li>2 days embedded with your team</li>
+                    <li>Hands-on training</li>
+                </ul>
+                <a href="#book" class="btn btn--ghost btn--sm">Book On-Site →</a>
+            </div>
+        </div>
+        <div class="offer-guarantee">
+            If it's not worth it, you name the price. <span class="accent">Including $0.</span>
+        </div>
+    </section>
+
+    <!-- PAGE 3: BOOK -->
+    <section class="page book-page" id="book">
+        <h2 class="book-heading">Ready to stop<br>the <span class="accent">bleed?</span></h2>
+        <p class="book-sub">We take 5 clients per month. Stanford & Microsoft trained. PE-backed HVAC operations experience. We've been in the field.</p>
+        <div class="book-actions">
+            <!-- REPLACE href with Calendly link -->
+            <a href="#" class="btn btn--accent">Schedule Your Audit →</a>
+            <!-- REPLACE href with Stripe payment link -->
+            <a href="#" class="btn btn--ghost">Pay & Start Now →</a>
+        </div>
+        <div class="book-cards">
+            <div class="book-card">
+                <!-- REPLACE: embed Calendly here -->
+                <!-- <div class="calendly-inline-widget" data-url="https://calendly.com/YOUR_LINK" style="min-width:280px;height:400px;"></div> -->
+                <h4>📅 Book a Call</h4>
+                <p>15 minutes. We'll tell you your #1 bottleneck — whether you hire us or not.</p>
+                <a href="#" class="btn btn--ghost btn--sm">Choose a Time →</a>
+            </div>
+            <div class="book-card">
+                <h4>⚡ Skip the Call</h4>
+                <p>Pay the deposit and we start your audit within 24 hours. No waiting.</p>
+                <!-- REPLACE href with Stripe link -->
+                <a href="#" class="btn btn--ghost btn--sm">Pay $3,500 →</a>
+            </div>
+        </div>
+        <div class="book-email">
+            <span>Or email us directly</span>
+            <a href="mailto:hello@logbrief.com">hello@logbrief.com</a>
+        </div>
+        <div class="book-footer">© 2026 LOGBRIEF — Find the bleed. Fix the bleed. Grow.</div>
+    </section>
+
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    /* ── Intro gate ── */
+    var intro = document.getElementById('intro');
+    var main = document.getElementById('main');
+    var topbar = document.getElementById('topbar');
+    var dots = document.getElementById('scrollDots');
+
+    intro.addEventListener('click', function () {
+        intro.classList.add('gone');
+        document.body.style.overflow = '';
+        main.classList.add('active');
+        setTimeout(function () {
+            topbar.classList.add('visible');
+            dots.classList.add('visible');
+            intro.style.display = 'none';
+        }, 600);
+    });
+
+    /* ── Rotating words ── */
+    var words = document.querySelectorAll('.rotate-wrap span');
+    var wi = 0;
+    setInterval(function () {
+        var cur = words[wi];
+        var nxt = words[(wi + 1) % words.length];
+        cur.classList.remove('active');
+        cur.classList.add('out');
+        nxt.classList.remove('out');
+        nxt.classList.add('active');
+        setTimeout(function () { cur.classList.remove('out'); }, 500);
+        wi = (wi + 1) % words.length;
+    }, 2200);
+
+    /* ── Scroll dot tracking ── */
+    var pages = document.querySelectorAll('.page');
+    var dotEls = document.querySelectorAll('.scroll-dot');
+
+    main.addEventListener('scroll', function () {
+        var scrollTop = main.scrollTop;
+        var h = window.innerHeight;
+        var idx = Math.round(scrollTop / h);
+        dotEls.forEach(function (d, i) {
+            d.classList.toggle('active', i === idx);
+        });
+    }, { passive: true });
+
+    dotEls.forEach(function (d) {
+        d.addEventListener('click', function () {
+            var p = parseInt(d.dataset.page);
+            pages[p].scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    /* ── Smooth anchor links ── */
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+            var id = this.getAttribute('href');
+            if (id === '#') return;
+            var el = document.querySelector(id);
+            if (el) {
+                e.preventDefault();
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+})();
+</script>
+</body>
+</html>
