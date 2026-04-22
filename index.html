@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGBRIEF — Your Technical Advocate in the Trades</title>
+    <meta name="description" content="A 2-week business audit that finds the revenue leaks in your trades business and deploys working fixes. HVAC, Plumbing, Electrical, Roofing. Money-back guarantee.">
+    <meta property="og:title" content="LOGBRIEF — Your Technical Advocate in the Trades">
+    <meta property="og:description" content="We diagnose your biggest revenue leaks and deploy working fixes in under 2 weeks. $3,000–$5,000 audit. Name-your-price guarantee.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-panel: rgba(255,255,255,0.04);
+            --bg-panel-hover: rgba(255,255,255,0.07);
+            --white: #ffffff;
+            --text: #e6edf3;
+            --text-dim: #8b949e;
+            --text-muted: #484f58;
+            --accent: #58a6ff;
+            --accent-bright: #79c0ff;
+            --accent-glow: rgba(88,166,255,0.25);
+            --green: #3fb950;
+            --green-glow: rgba(63,185,80,0.2);
+            --orange: #d29922;
+            --pink: #f778ba;
+            --border: rgba(255,255,255,0.08);
+            --font: 'Inter', -apple-system, sans-serif;
+            --mono: 'Space Mono', monospace;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ═══════ INTRO SCREEN ═══════ */
+        .intro {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: radial-gradient(circle at 50% 50%, #0d1117 0%, #010409 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 28px;
+            overflow: hidden;
+            transition: opacity 0.9s cubic-bezier(.4,0,.2,1), transform 0.9s cubic-bezier(.4,0,.2,1);
+        }
+        .intro.gone { opacity: 0; transform: scale(1.15); pointer-events: none; }
+
+        .intro::before {
+            content: '';
+            position: absolute;
+            inset: -20%;
+            background-image:
+                linear-gradient(rgba(88,166,255,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(88,166,255,0.06) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(circle at 50% 50%, black 20%, transparent 65%);
+            -webkit-mask-image: radial-gradient(circle at 50% 50%, black 20%, transparent 65%);
+            animation: grid-drift 18s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes grid-drift { to { transform: translate(-48px, -48px); } }
+
+        .intro::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(88,166,255,0.6), transparent);
+            top: 0;
+            animation: scan-sweep 3.5s cubic-bezier(.4,0,.2,1) infinite;
+            pointer-events: none;
+        }
+        @keyframes scan-sweep {
+            0% { top: 0; opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .intro-brand {
+            position: absolute;
+            top: 32px; left: 32px;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.32em;
+            color: rgba(255,255,255,0.5);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .intro-brand .brand-dot {
+            width: 8px; height: 8px;
+            background: #3fb950;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #3fb950;
+            animation: pulse-green 1.4s ease-in-out infinite;
+        }
+        @keyframes pulse-green { 50% { opacity: 0.3; transform: scale(0.7); } }
+
+        .intro-stamp {
+            position: absolute;
+            top: 32px; right: 32px;
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            color: rgba(255,255,255,0.35);
+            text-align: right;
+            line-height: 1.7;
+        }
+
+        .intro-ring { width: 220px; height: 220px; position: relative; z-index: 2; }
+        .intro-ring svg { width: 100%; height: 100%; }
+        .intro-ring .spin-group { transform-origin: 110px 110px; animation: spin 14s linear infinite; }
+        .intro-ring .spin-group-rev { transform-origin: 110px 110px; animation: spin 9s linear infinite reverse; }
+        .intro-ring .progress-arc {
+            transform: rotate(-90deg);
+            transform-origin: 110px 110px;
+            transition: stroke-dasharray 0.1s linear;
+            filter: drop-shadow(0 0 10px rgba(88,166,255,0.7));
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .intro-ring .inner-icon {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.6rem;
+            filter: drop-shadow(0 0 20px rgba(247,120,186,0.4));
+        }
+
+        .intro-status {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            min-height: 1em;
+            display: flex; align-items: center; gap: 10px;
+            z-index: 2;
+        }
+        .intro-status .caret {
+            display: inline-block;
+            width: 7px; height: 14px;
+            background: var(--accent);
+            animation: caret-blink 0.9s step-end infinite;
+        }
+        @keyframes caret-blink { 50% { opacity: 0; } }
+
+        .intro-status .swap { display: inline-block; animation: swap-in 0.4s cubic-bezier(.16,1,.3,1); }
+        @keyframes swap-in {
+            from { opacity: 0; transform: translateY(8px); filter: blur(4px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .intro-progress {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 340px; max-width: 75vw;
+            z-index: 2;
+        }
+        .intro-bar {
+            width: 100%; height: 2px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .intro-bar-fill {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, #58a6ff, #f778ba, #3fb950);
+            border-radius: 2px;
+            box-shadow: 0 0 14px rgba(88,166,255,0.7);
+            transition: width 0.1s linear;
+        }
+        .intro-pct {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            color: var(--text-muted);
+            display: flex; justify-content: space-between; width: 100%;
+            text-transform: uppercase;
+        }
+        .intro-pct .pct-val { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+        .intro-bracket {
+            position: absolute;
+            width: 40px; height: 40px;
+            border: 1px solid rgba(88,166,255,0.4);
+            z-index: 2; pointer-events: none;
+        }
+        .intro-bracket.tl { top: calc(50% - 170px); left: calc(50% - 170px); border-right: none; border-bottom: none; }
+        .intro-bracket.tr { top: calc(50% - 170px); right: calc(50% - 170px); border-left: none; border-bottom: none; }
+        .intro-bracket.bl { bottom: calc(50% - 170px); left: calc(50% - 170px); border-right: none; border-top: none; }
+        .intro-bracket.br { bottom: calc(50% - 170px); right: calc(50% - 170px); border-left: none; border-top: none; }
+
+        @media (max-width: 600px) {
+            .intro-bracket { display: none; }
+            .intro-brand, .intro-stamp { font-size: 0.58rem; top: 18px; }
+            .intro-brand { left: 18px; }
+            .intro-stamp { right: 18px; }
+        }
+
+        /* ═══════ MAIN ═══════ */
+        .main {
+            opacity: 0;
+            transition: opacity 0.8s 0.3s;
+        }
+        .main.active { opacity: 1; }
+
+        /* ═══════ TOP BAR ═══════ */
+        .topbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 50;
+            padding: 14px clamp(24px, 4vw, 60px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(13,17,23,0.75);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .topbar.visible { opacity: 1; }
+        .topbar-logo {
+            font-family: var(--mono);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+        }
+        .topbar-logo .dot {
+            display: inline-block; width: 8px; height: 8px;
+            background: var(--green); border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 8px var(--green);
+        }
+        .topbar-nav {
+            display: flex; gap: 28px; align-items: center;
+        }
+        .topbar-nav a {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar-nav a:hover { color: var(--accent); }
+        .topbar-cta {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+            padding: 9px 18px;
+            background: var(--accent);
+            color: var(--bg);
+            border-radius: 6px;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        .topbar-cta:hover { background: var(--accent-bright); transform: translateY(-1px); }
+        @media (max-width: 800px) { .topbar-nav a:not(.topbar-cta) { display: none; } }
+
+        /* ═══════ SECTION WRAPPER ═══════ */
+        section { padding: clamp(80px, 10vh, 140px) clamp(24px, 5vw, 80px); }
+        .wrap { max-width: 1200px; margin: 0 auto; }
+        .narrow { max-width: 900px; margin: 0 auto; }
+
+        .eyebrow {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .eyebrow .pulse-dot {
+            width: 8px; height: 8px; background: var(--green); border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 var(--green-glow); }
+            50% { box-shadow: 0 0 0 8px transparent; }
+        }
+
+        h2.section-head {
+            font-size: clamp(2rem, 4vw, 3.4rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        h2.section-head .accent { color: var(--accent); }
+        .section-sub {
+            font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+            color: var(--text-dim);
+            line-height: 1.7;
+            max-width: 680px;
+            margin-bottom: 56px;
+        }
+
+        /* ═══════ HERO ═══════ */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            padding-top: 120px;
+            padding-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%; right: -10%;
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 55%);
+            pointer-events: none;
+        }
+
+        .hero-left { position: relative; z-index: 2; }
+
+        .hero-heading {
+            font-size: clamp(2.6rem, 5.5vw, 5rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.035em;
+            text-transform: uppercase;
+            margin-bottom: 26px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.5s forwards;
+        }
+        .hero-heading .rotate-wrap {
+            display: inline-block;
+            position: relative;
+            height: 1.05em;
+            overflow: hidden;
+            vertical-align: bottom;
+        }
+        .hero-heading .rotate-wrap span {
+            display: block;
+            position: absolute;
+            left: 0; top: 0;
+            color: var(--accent);
+            opacity: 0;
+            transform: translateY(110%);
+            transition: all 0.5s cubic-bezier(.16,1,.3,1);
+        }
+        .hero-heading .rotate-wrap span.active { opacity: 1; transform: translateY(0); }
+        .hero-heading .rotate-wrap span.out { opacity: 0; transform: translateY(-110%); }
+
+        .hero-sub {
+            font-size: clamp(1rem, 1.3vw, 1.15rem);
+            color: var(--text-dim);
+            line-height: 1.75;
+            max-width: 560px;
+            margin-bottom: 36px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.7s forwards;
+        }
+        .hero-sub strong { color: var(--text); font-weight: 600; }
+
+        .hero-eyebrow {
+            opacity: 0;
+            animation: fadeUp 0.8s 0.3s forwards;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.9s forwards;
+            margin-bottom: 44px;
+        }
+
+        .hero-proof {
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            gap: 44px;
+            opacity: 0;
+            animation: fadeUp 0.8s 1.1s forwards;
+        }
+        .proof-value {
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .proof-label {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: var(--text-muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero right */
+        .hero-right {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 480px;
+        }
+        .hero-right::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: breathe 6s ease-in-out infinite;
+        }
+        @keyframes breathe {
+            0%, 100% { transform: scale(0.9); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        .hero-graphic {
+            position: relative;
+            width: 420px;
+            height: 420px;
+            max-width: 100%;
+            z-index: 2;
+        }
+        .diag-ring { position: absolute; inset: 0; animation: spin 20s linear infinite; }
+
+        .center-hub {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px; height: 150px;
+            background: rgba(13,17,23,0.85);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            backdrop-filter: blur(20px);
+            z-index: 3;
+        }
+        .center-hub .hub-value {
+            font-size: 1.9rem;
+            font-weight: 900;
+            color: var(--green);
+            line-height: 1;
+        }
+        .center-hub .hub-label {
+            font-family: var(--mono);
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        .orbit-card {
+            position: absolute;
+            background: rgba(13,17,23,0.9);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            z-index: 4;
+            animation: float-card 5s ease-in-out infinite;
+            white-space: nowrap;
+        }
+        .orbit-card .oc-icon { font-size: 1.05rem; margin-bottom: 4px; }
+        .orbit-card .oc-title { font-weight: 700; font-size: 0.78rem; margin-bottom: 2px; }
+        .orbit-card .oc-stat { font-family: var(--mono); font-size: 0.62rem; color: var(--accent); }
+
+        .orbit-card:nth-of-type(1) { top: 6%; right: -2%; animation-delay: 0s; }
+        .orbit-card:nth-of-type(2) { top: 50%; right: -8%; animation-delay: -1.5s; }
+        .orbit-card:nth-of-type(3) { bottom: 6%; left: 4%; animation-delay: -3s; }
+        .orbit-card:nth-of-type(4) { top: 10%; left: -6%; animation-delay: -4s; }
+
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ═══════ PROBLEM BAR ═══════ */
+        .problem {
+            background: linear-gradient(180deg, transparent, rgba(88,166,255,0.03), transparent);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 60px clamp(24px, 5vw, 80px);
+        }
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .problem-item .p-num {
+            font-family: var(--mono);
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+        .problem-item .p-label {
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            line-height: 1.55;
+            margin-top: 10px;
+        }
+        @media (max-width: 800px) { .problem-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+
+        /* ═══════ FLYWHEEL / PHASES ═══════ */
+        .phases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin-bottom: 24px;
+        }
+        .phase {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 40px 32px;
+            transition: all 0.4s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .phase:hover { background: var(--bg-panel-hover); border-color: var(--accent); }
+        .phase.featured {
+            border-color: var(--accent);
+            background: linear-gradient(180deg, rgba(88,166,255,0.08), var(--bg-panel));
+        }
+        .phase.featured::before {
+            content: 'START HERE';
+            position: absolute;
+            top: -10px; left: 24px;
+            background: var(--accent);
+            color: var(--bg);
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            padding: 4px 10px;
+            border-radius: 3px;
+        }
+        .phase-label {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .phase h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.01em;
+            margin-bottom: 12px;
+        }
+        .phase-price {
+            font-family: var(--mono);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+            letter-spacing: -0.02em;
+        }
+        .phase-time {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .phase-desc {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .phase-list {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+        .phase-list li {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            padding: 6px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+        .phase-list li::before {
+            content: '→';
+            color: var(--accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        @media (max-width: 900px) { .phases-grid { grid-template-columns: 1fr; } }
+
+        .offer-guarantee {
+            background: var(--bg-panel);
+            border: 1px solid var(--accent);
+            padding: 22px 28px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.01em;
+            line-height: 1.5;
+        }
+        .offer-guarantee .accent { color: var(--accent); }
+
+        /* ═══════ CASE STUDY ═══════ */
+        .case {
+            background: linear-gradient(180deg, rgba(88,166,255,0.04), transparent);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        .case-header .stamp {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 8px 14px;
+            border-radius: 4px;
+        }
+        .case-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+        .case-block {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+        }
+        .case-block h4 {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        .case-block ul { list-style: none; }
+        .case-block li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+        .case-block li:last-child { border-bottom: none; }
+        .case-block .num {
+            font-family: var(--mono);
+            color: var(--accent);
+            font-weight: 700;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .case-block.bleed li .num { color: var(--pink); }
+
+        .case-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .case-stat {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+            text-align: center;
+        }
+        .case-stat .v {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .case-stat .l {
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+        @media (max-width: 900px) {
+            .case-grid { grid-template-columns: 1fr; }
+            .case-stats { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ═══════ ICP ═══════ */
+        .icp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .icp-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 36px 32px;
+            transition: all 0.3s;
+        }
+        .icp-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .icp-card .tier {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        .icp-card h4 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .icp-card .stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .icp-stat {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            background: rgba(88,166,255,0.08);
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+        .icp-card p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+        @media (max-width: 700px) { .icp-grid { grid-template-columns: 1fr; } }
+
+        /* ═══════ FOUNDERS ═══════ */
+        .founders {
+            background: linear-gradient(180deg, transparent, rgba(88,166,255,0.03));
+            border-top: 1px solid var(--border);
+        }
+        .founders-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .founder {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 36px;
+            transition: all 0.3s;
+        }
+        .founder:hover { border-color: var(--accent); }
+        .founder-head {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .founder-avatar {
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--pink) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.3rem;
+            color: var(--bg);
+            flex-shrink: 0;
+        }
+        .founder-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+        }
+        .founder-role {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--accent);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+        .founder-bio {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+        .founder-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .chip {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: rgba(88,166,255,0.1);
+            border: 1px solid rgba(88,166,255,0.25);
+            color: var(--accent);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        @media (max-width: 800px) { .founders-grid { grid-template-columns: 1fr; } }
+
+        /* ═══════ DIFFERENTIATION ═══════ */
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+        }
+        .diff {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 32px;
+            transition: all 0.3s;
+        }
+        .diff:hover { background: var(--bg-panel-hover); border-color: var(--accent); }
+        .diff-icon { font-size: 1.5rem; margin-bottom: 14px; }
+        .diff h4 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.01em;
+        }
+        .diff p {
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+        @media (max-width: 700px) { .diff-grid { grid-template-columns: 1fr; } }
+
+        /* ═══════ FAQ ═══════ */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .faq-item {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .faq-item:hover { background: var(--bg-panel-hover); }
+        .faq-q {
+            padding: 22px 28px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .faq-q .plus {
+            font-family: var(--mono);
+            font-size: 1.3rem;
+            color: var(--accent);
+            transition: transform 0.3s;
+            font-weight: 300;
+        }
+        .faq-item.open .faq-q .plus { transform: rotate(45deg); }
+        .faq-a {
+            padding: 0 28px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(.16,1,.3,1), padding 0.3s;
+            font-size: 0.92rem;
+            color: var(--text-dim);
+            line-height: 1.75;
+        }
+        .faq-item.open .faq-a {
+            max-height: 400px;
+            padding: 0 28px 24px;
+        }
+
+        /* ═══════ INVESTORS ═══════ */
+        .investors {
+            background:
+                linear-gradient(180deg, rgba(88,166,255,0.05), transparent 40%),
+                linear-gradient(0deg, rgba(63,185,80,0.04), transparent 40%);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .investors::before {
+            content: '';
+            position: absolute;
+            top: 20%; right: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .investors .wrap { position: relative; z-index: 2; }
+
+        .inv-lenses {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            margin-bottom: 56px;
+        }
+        .inv-lens {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 36px 32px;
+            position: relative;
+            transition: all 0.4s;
+        }
+        .inv-lens:hover { border-color: var(--accent); background: var(--bg-panel-hover); }
+        .inv-lens .lens-tag {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+        .inv-lens h4 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            margin-bottom: 14px;
+        }
+        .inv-lens h4 .h-accent { color: var(--accent); }
+        .inv-lens p {
+            font-size: 0.92rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+        @media (max-width: 800px) { .inv-lenses { grid-template-columns: 1fr; } }
+
+        .inv-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            margin-bottom: 56px;
+        }
+        .inv-metric {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 28px 24px;
+            transition: all 0.3s;
+        }
+        .inv-metric:hover { background: var(--bg-panel-hover); }
+        .inv-metric .m-val {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .inv-metric .m-val.green { color: var(--green); }
+        .inv-metric .m-val.pink { color: var(--pink); }
+        .inv-metric .m-val.orange { color: var(--orange); }
+        .inv-metric .m-label {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: var(--text-muted);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .inv-metric .m-desc {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            line-height: 1.55;
+        }
+        @media (max-width: 800px) { .inv-metrics { grid-template-columns: 1fr 1fr; } }
+
+        .inv-timeline {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin-bottom: 48px;
+        }
+        .inv-stage {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 36px 32px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .inv-stage:hover { background: var(--bg-panel-hover); border-color: var(--accent); }
+        .inv-stage .stage-phase {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .inv-stage .stage-time {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            letter-spacing: 0.02em;
+        }
+        .inv-stage .stage-target {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--text);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 14px;
+        }
+        .inv-stage .stage-target .accent { color: var(--accent); }
+        .inv-stage p {
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+        @media (max-width: 800px) { .inv-timeline { grid-template-columns: 1fr; } }
+
+        .inv-risks {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            margin-bottom: 48px;
+        }
+        .inv-risk {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 24px 28px;
+        }
+        .inv-risk .risk-label {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--pink);
+            margin-bottom: 6px;
+        }
+        .inv-risk h5 {
+            font-size: 0.98rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .inv-risk p {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+        .inv-risk .mitigant {
+            display: block;
+            margin-top: 8px;
+            color: var(--green);
+            font-weight: 600;
+        }
+        @media (max-width: 700px) { .inv-risks { grid-template-columns: 1fr; } }
+
+        .inv-cta {
+            background: linear-gradient(135deg, rgba(88,166,255,0.15), rgba(247,120,186,0.08));
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 36px;
+            text-align: center;
+        }
+        .inv-cta h4 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+        .inv-cta p {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            max-width: 540px;
+            margin: 0 auto 24px;
+            line-height: 1.65;
+        }
+
+        /* ═══════ BOOK CTA ═══════ */
+        .book-section {
+            position: relative;
+            overflow: hidden;
+        }
+        .book-section::before {
+            content: '';
+            position: absolute;
+            top: 10%; left: 50%;
+            transform: translateX(-50%);
+            width: 900px; height: 500px;
+            background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .book-inner {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 780px;
+            margin: 0 auto;
+        }
+        .book-heading {
+            font-size: clamp(2.4rem, 5vw, 4.4rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.035em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .book-heading .accent { color: var(--accent); }
+        .book-sub {
+            font-size: clamp(1rem, 1.3vw, 1.15rem);
+            color: var(--text-dim);
+            max-width: 580px;
+            margin: 0 auto 40px;
+            line-height: 1.75;
+        }
+        .book-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 48px;
+        }
+        .book-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .book-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            transition: all 0.4s;
+        }
+        .book-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .book-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+        .book-card p { font-size: 0.88rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 18px; }
+        .book-email { margin-top: 40px; }
+        .book-email span {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .book-email a {
+            font-family: var(--mono);
+            font-size: 0.92rem;
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 2px;
+        }
+        @media (max-width: 700px) { .book-cards { grid-template-columns: 1fr; } }
+
+        /* ═══════ FOOTER ═══════ */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 36px clamp(24px, 5vw, 80px);
+            text-align: center;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.14em;
+        }
+        footer .contact {
+            margin-bottom: 12px;
+            color: var(--text-dim);
+        }
+        footer .contact a { color: var(--accent); text-decoration: none; }
+        footer .contact a:hover { text-decoration: underline; }
+
+        /* ═══════ BUTTONS ═══════ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 14px 30px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.35s cubic-bezier(.16,1,.3,1);
+            white-space: nowrap;
+        }
+        .btn--accent {
+            background: var(--accent);
+            color: var(--bg);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .btn--accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px var(--accent-glow), 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .btn--ghost {
+            background: var(--bg-panel);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn--ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+        .btn--sm { padding: 10px 18px; font-size: 0.75rem; }
+
+        /* ═══════ RESPONSIVE ═══════ */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; gap: 40px; text-align: left; padding-top: 100px; }
+            .hero-right { order: -1; min-height: 340px; }
+            .hero-graphic { width: 320px; height: 320px; }
+            .orbit-card { padding: 8px 12px; }
+            .orbit-card .oc-title { font-size: 0.7rem; }
+            .orbit-card .oc-stat { font-size: 0.58rem; }
+        }
+        @media (max-width: 600px) {
+            .hero-ctas { flex-direction: column; align-items: stretch; }
+            .hero-ctas .btn { width: 100%; justify-content: center; }
+            .hero-proof { grid-template-columns: 1fr; gap: 20px; }
+            .book-actions { flex-direction: column; }
+            .book-actions .btn { width: 100%; justify-content: center; }
+            .case-stats { grid-template-columns: 1fr 1fr; }
+            section { padding-left: 20px; padding-right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════ INTRO GATE ═══════ -->
+<div class="intro" id="intro">
+    <div class="intro-brand"><span class="brand-dot"></span>LOGBRIEF // DIAGNOSTIC</div>
+    <div class="intro-stamp">SESSION <span id="sid">0000</span><br>LIVE · SECURE CHANNEL</div>
+
+    <div class="intro-bracket tl"></div>
+    <div class="intro-bracket tr"></div>
+    <div class="intro-bracket bl"></div>
+    <div class="intro-bracket br"></div>
+
+    <div class="intro-ring">
+        <svg viewBox="0 0 220 220" fill="none">
+            <g class="spin-group">
+                <circle cx="110" cy="110" r="102" stroke="url(#grad)" stroke-width="1.2" stroke-dasharray="6 6" opacity="0.35"/>
+                <circle cx="110" cy="110" r="88" stroke="url(#grad)" stroke-width="0.8" stroke-dasharray="3 8" opacity="0.22"/>
+            </g>
+            <g class="spin-group-rev">
+                <circle cx="110" cy="110" r="76" stroke="#58a6ff" stroke-width="0.6" stroke-dasharray="2 12" opacity="0.3"/>
+                <circle cx="110" cy="20" r="2.5" fill="#58a6ff" opacity="0.8"/>
+                <circle cx="200" cy="110" r="2" fill="#f778ba" opacity="0.8"/>
+                <circle cx="110" cy="200" r="2" fill="#3fb950" opacity="0.8"/>
+                <circle cx="20" cy="110" r="2" fill="#d29922" opacity="0.8"/>
+            </g>
+            <circle cx="110" cy="110" r="66" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+            <circle id="progressArc" class="progress-arc" cx="110" cy="110" r="66" stroke="#58a6ff" stroke-width="3" stroke-dasharray="0 415" stroke-linecap="round"/>
+            <defs>
+                <linearGradient id="grad" x1="0" y1="0" x2="220" y2="220">
+                    <stop offset="0%" stop-color="#58a6ff"/>
+                    <stop offset="50%" stop-color="#f778ba"/>
+                    <stop offset="100%" stop-color="#3fb950"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <div class="inner-icon">⚡</div>
+    </div>
+
+    <div class="intro-status" id="introStatus">
+        <span class="caret"></span><span class="swap" id="introStatusText">Initializing diagnostic engine</span>
+    </div>
+
+    <div class="intro-progress">
+        <div class="intro-bar"><div class="intro-bar-fill" id="introBarFill"></div></div>
+        <div class="intro-pct">
+            <span>SCANNING OPERATIONS</span>
+            <span class="pct-val"><span id="introPct">0</span>%</span>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════ TOP BAR ═══════ -->
+<div class="topbar" id="topbar">
+    <a href="#" class="topbar-logo"><span class="dot"></span>LOGBRIEF</a>
+    <div class="topbar-nav">
+        <a href="#offer">How It Works</a>
+        <a href="#case">Case Study</a>
+        <a href="#founders">Team</a>
+        <a href="#investors">Investors</a>
+        <a href="#book" class="topbar-cta">Book Audit →</a>
+    </div>
+</div>
+
+<div class="main" id="main">
+
+    <!-- ═══════ HERO ═══════ -->
+    <section class="hero">
+        <div class="hero-left">
+            <div class="hero-eyebrow eyebrow">
+                <span class="pulse-dot"></span>
+                Your technical advocate in the trades
+            </div>
+            <h1 class="hero-heading">
+                Your
+                <span class="rotate-wrap"><span class="active">HVAC</span><span>Plumbing</span><span>Electrical</span><span>Roofing</span></span><br>
+                business is<br>
+                leaving money<br>
+                on the table.
+            </h1>
+            <p class="hero-sub">
+                <strong>LogBrief is Palantir for the Trades.</strong> A structured 2-week audit that finds your biggest revenue leaks — missed scheduling, unsold estimate backlog, broken referral programs — and deploys working fixes. Built by the operator who scaled a Shore Capital portfolio business 3× and the product lead who shipped $200M+ ARR at Microsoft.
+            </p>
+            <div class="hero-ctas">
+                <a href="#book" class="btn btn--accent">Book the Audit →</a>
+                <a href="#offer" class="btn btn--ghost">See How It Works</a>
+            </div>
+            <div class="hero-proof">
+                <div class="proof-item">
+                    <div class="proof-value">&lt; 2 wks</div>
+                    <div class="proof-label">To a roadmap</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-value">$3K–$5K</div>
+                    <div class="proof-label">Fixed-price audit</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-value">Name your<br>price</div>
+                    <div class="proof-label">Guarantee, incl. $0</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="hero-graphic">
+                <svg class="diag-ring" viewBox="0 0 420 420" fill="none">
+                    <circle cx="210" cy="210" r="200" stroke="url(#ring-grad)" stroke-width="0.5" stroke-dasharray="4 8" opacity="0.3"/>
+                    <circle cx="210" cy="210" r="170" stroke="url(#ring-grad)" stroke-width="0.5" stroke-dasharray="4 6" opacity="0.2"/>
+                    <circle cx="210" cy="210" r="140" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="180 720" stroke-linecap="round" opacity="0.6"/>
+                    <circle cx="210" cy="210" r="170" stroke="#3fb950" stroke-width="1" stroke-dasharray="100 970" stroke-linecap="round" opacity="0.4"/>
+                    <line x1="210" y1="10" x2="210" y2="30" stroke="#58a6ff" stroke-width="1" opacity="0.3"/>
+                    <line x1="210" y1="390" x2="210" y2="410" stroke="#58a6ff" stroke-width="1" opacity="0.3"/>
+                    <line x1="10" y1="210" x2="30" y2="210" stroke="#58a6ff" stroke-width="1" opacity="0.3"/>
+                    <line x1="390" y1="210" x2="410" y2="210" stroke="#58a6ff" stroke-width="1" opacity="0.3"/>
+                    <circle cx="210" cy="10" r="3" fill="#58a6ff" opacity="0.5"/>
+                    <circle cx="10" cy="210" r="3" fill="#3fb950" opacity="0.5"/>
+                    <circle cx="380" cy="100" r="2" fill="#f778ba" opacity="0.6"/>
+                    <circle cx="60" cy="340" r="2" fill="#d29922" opacity="0.6"/>
+                    <defs>
+                        <linearGradient id="ring-grad" x1="0" y1="0" x2="420" y2="420">
+                            <stop offset="0%" stop-color="#58a6ff"/>
+                            <stop offset="50%" stop-color="#f778ba"/>
+                            <stop offset="100%" stop-color="#3fb950"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="center-hub">
+                    <div class="hub-value">+$125K</div>
+                    <div class="hub-label">Monthly revenue<br>recovered</div>
+                </div>
+                <div class="orbit-card">
+                    <div class="oc-icon">📞</div>
+                    <div class="oc-title">AI Scheduling</div>
+                    <div class="oc-stat">5–10% more appts</div>
+                </div>
+                <div class="orbit-card">
+                    <div class="oc-icon">💬</div>
+                    <div class="oc-title">Follow-up</div>
+                    <div class="oc-stat">SQL → Sale +5%</div>
+                </div>
+                <div class="orbit-card">
+                    <div class="oc-icon">💰</div>
+                    <div class="oc-title">Estimate Recapture</div>
+                    <div class="oc-stat">$18M backlog unlocked</div>
+                </div>
+                <div class="orbit-card">
+                    <div class="oc-icon">🔗</div>
+                    <div class="oc-title">Referral Engine</div>
+                    <div class="oc-stat">Custom + attribution</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ PROBLEM BAR ═══════ -->
+    <section class="problem">
+        <div class="problem-grid">
+            <div class="problem-item">
+                <div class="p-num">90%</div>
+                <div class="p-label">of trades businesses haven't meaningfully adopted AI or automation</div>
+            </div>
+            <div class="problem-item">
+                <div class="p-num">15–20</div>
+                <div class="p-label">software vendors pitch your team every week — decision fatigue is real</div>
+            </div>
+            <div class="problem-item">
+                <div class="p-num">3+ mo</div>
+                <div class="p-label">to implement ServiceTitan — and you're stuck hand-holding the rollout</div>
+            </div>
+            <div class="problem-item">
+                <div class="p-num">$1.2T</div>
+                <div class="p-label">U.S. trades industry in a 20–30 year growth cycle and the gap keeps widening</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ THE OFFER ═══════ -->
+    <section id="offer">
+        <div class="wrap">
+            <div class="eyebrow"><span class="pulse-dot"></span>The Flywheel</div>
+            <h2 class="section-head">Three phases.<br>One <span class="accent">technical advocate.</span></h2>
+            <p class="section-sub">
+                We don't sell software. We don't force rip-and-replace. We diagnose, implement, and maintain — at a fraction of the cost of a full-time CTO. Every engagement deepens our corpus and makes the next one faster and cheaper.
+            </p>
+
+            <div class="phases-grid">
+                <div class="phase featured">
+                    <div class="phase-label">Phase A · Audit</div>
+                    <h3>Core Audit</h3>
+                    <div class="phase-price">$3K–$5K</div>
+                    <div class="phase-time">&lt; 2 weeks · Fixed price</div>
+                    <p class="phase-desc">
+                        Two 1-hour structured interviews with your principal operators. We map your stack, revenue drivers, and experiments — then ship a written roadmap of the top 2–3 value chains with vendor selection, cost, ROI, and timeline.
+                    </p>
+                    <ul class="phase-list">
+                        <li>Structured operator interviews</li>
+                        <li>Written roadmap + training session</li>
+                        <li>Tiered options: DIY · Assisted · Custom</li>
+                        <li>30-day follow-up window</li>
+                    </ul>
+                    <a href="#book" class="btn btn--accent btn--sm">Start Audit →</a>
+                </div>
+
+                <div class="phase">
+                    <div class="phase-label">Phase B · Implementation</div>
+                    <h3>Build &amp; Deploy</h3>
+                    <div class="phase-price">$5K–$25K+</div>
+                    <div class="phase-time">1–4 weeks per solution</div>
+                    <p class="phase-desc">
+                        White-glove setup for the fixes the audit surfaces. We configure off-the-shelf tools (Snowball, Podium, Niche AI) or build custom automations — AI scheduling agents, follow-up sequences, referral engines.
+                    </p>
+                    <ul class="phase-list">
+                        <li>Tier 1: Vendor-based ($5–$10K)</li>
+                        <li>Tier 2: Custom automations ($10–$25K+)</li>
+                        <li>CRM integration · Staff training</li>
+                        <li>90-day maintenance on custom builds</li>
+                    </ul>
+                    <a href="#book" class="btn btn--ghost btn--sm">Discuss Scope →</a>
+                </div>
+
+                <div class="phase">
+                    <div class="phase-label">Phase C · Advisory</div>
+                    <h3>Ongoing Partner</h3>
+                    <div class="phase-price">$1K–$2.5K</div>
+                    <div class="phase-time">Per quarter</div>
+                    <p class="phase-desc">
+                        Stay on your side. Quarterly operational reviews, uptime on custom automations, vendor renewal management, and priority access to new solutions as the LogBrief corpus expands.
+                    </p>
+                    <ul class="phase-list">
+                        <li>Quarterly operational reviews</li>
+                        <li>Maintenance + uptime support</li>
+                        <li>Vendor renewals + negotiation</li>
+                        <li>Ad-hoc advisory between check-ins</li>
+                    </ul>
+                    <a href="#book" class="btn btn--ghost btn--sm">Become a Partner →</a>
+                </div>
+            </div>
+
+            <div class="offer-guarantee">
+                <span class="accent">Our guarantee:</span> if the roadmap isn't worth the cost, <strong>name your price. Including $0.</strong> We stand behind the value we deliver.
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ CASE STUDY ═══════ -->
+    <section class="case" id="case">
+        <div class="wrap">
+            <div class="case-header">
+                <div>
+                    <div class="eyebrow"><span class="pulse-dot"></span>Validation engagement · April 2026</div>
+                    <h2 class="section-head">Skycrest Roofing</h2>
+                    <p style="color: var(--text-dim); font-size: 1rem; line-height: 1.7; max-width: 620px; margin-top: 8px;">
+                        ~$2.5M average monthly revenue · Colorado (PE-backed, Shore Capital) + Florida. We ran the audit and surfaced five revenue leaks in two weeks.
+                    </p>
+                </div>
+                <div class="stamp">CASE 001</div>
+            </div>
+
+            <div class="case-grid">
+                <div class="case-block bleed">
+                    <h4>🩸 The Bleed We Found</h4>
+                    <ul>
+                        <li><span>SQL→Sale stuck at 30–40%, ceiling is 45%</span><span class="num">+$125K/mo</span></li>
+                        <li><span>$18M in unconverted estimates over 4 years</span><span class="num">4-yr backlog</span></li>
+                        <li><span>AnswerForce can't book into AccuLynx — customers drop</span><span class="num">lost appts</span></li>
+                        <li><span>Snowball referral program underused at warm-glow moment</span><span class="num">$500 × N</span></li>
+                        <li><span>MQL→SQL dropping as marketing professionalizes</span><span class="num">80% → 40%</span></li>
+                    </ul>
+                </div>
+                <div class="case-block">
+                    <h4>⚡ The Fix We're Deploying</h4>
+                    <ul>
+                        <li><span>AI scheduling agent — AccuLynx API, territory-aware, auto-books</span><span class="num">Tier 2</span></li>
+                        <li><span>Text-based follow-up sequences at defined intervals</span><span class="num">Tier 1</span></li>
+                        <li><span>Custom referral landing pages with attribution</span><span class="num">Tier 2</span></li>
+                        <li><span>Post-job automated referral ask at warm-glow moment</span><span class="num">Tier 1</span></li>
+                        <li><span>Customer record cleanup back to Jan 2025</span><span class="num">Included</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-stats">
+                <div class="case-stat">
+                    <div class="v">+5%</div>
+                    <div class="l">Monthly SQL-to-sale conversion lift</div>
+                </div>
+                <div class="case-stat">
+                    <div class="v">+$125K</div>
+                    <div class="l">Incremental monthly revenue target</div>
+                </div>
+                <div class="case-stat">
+                    <div class="v">5–10%</div>
+                    <div class="l">Expected appointment increase</div>
+                </div>
+                <div class="case-stat">
+                    <div class="v">$18M</div>
+                    <div class="l">Estimate backlog under recapture</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ ICP ═══════ -->
+    <section>
+        <div class="wrap">
+            <div class="eyebrow"><span class="pulse-dot"></span>Target Customer Profile</div>
+            <h2 class="section-head">Who we <span class="accent">actually help.</span></h2>
+            <p class="section-sub">
+                We're calibrated for businesses with allocated budgets and real decision velocity. Two ICPs. One outcome: measurable EBITDA growth within 60 days.
+            </p>
+
+            <div class="icp-grid">
+                <div class="icp-card">
+                    <div class="tier">Primary ICP</div>
+                    <h4>PE-Backed Trades Companies</h4>
+                    <div class="stats">
+                        <div class="icp-stat">$5M–$50M+ revenue</div>
+                        <div class="icp-stat">HVAC · Plumbing · Electrical · Roofing</div>
+                    </div>
+                    <p>
+                        Growth-mandated by investors, allocated tech and marketing budgets, faster decisions than owner-operators. Data-aware but thin on technical execution. <strong style="color: var(--text);">The pain:</strong> demonstrate EBITDA growth to PE sponsors, overwhelmed by vendors, previous software implementations underdelivered.
+                    </p>
+                </div>
+                <div class="icp-card">
+                    <div class="tier">Secondary ICP</div>
+                    <h4>Growth-Oriented Owner-Operators</h4>
+                    <div class="stats">
+                        <div class="icp-stat">$2M–$10M revenue</div>
+                        <div class="icp-stat">Ambitious · No CTO in-house</div>
+                    </div>
+                    <p>
+                        Owners who see the need but can't hire for it. <strong style="color: var(--text);">The pain:</strong> 5%+ of revenue on marketing with unclear ROI, leads lost to poor follow-up, referral programs underperforming, manual processes bottlenecking growth.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ DIFFERENTIATION ═══════ -->
+    <section>
+        <div class="wrap">
+            <div class="eyebrow"><span class="pulse-dot"></span>Why LogBrief</div>
+            <h2 class="section-head">Not a vendor.<br>A <span class="accent">partner.</span></h2>
+            <p class="section-sub">
+                Pure-software plays (ServiceTitan, Jobber, Housecall Pro) require you to rip and replace. Pure consultants hand you a PDF and vanish. We do both — and stay on your side.
+            </p>
+            <div class="diff-grid">
+                <div class="diff">
+                    <div class="diff-icon">🔬</div>
+                    <h4>Systematic, Agent-Assisted Audits</h4>
+                    <p>Our audit is structured, repeatable, and accelerated by AI tooling. Every engagement makes the next one faster and cheaper to deliver.</p>
+                </div>
+                <div class="diff">
+                    <div class="diff-icon">🤝</div>
+                    <h4>Platform-Agnostic Vendor Relationships</h4>
+                    <p>We recommend what actually works. As we scale, preferential vendor relationships and pattern recognition across verticals compound.</p>
+                </div>
+                <div class="diff">
+                    <div class="diff-icon">🧩</div>
+                    <h4>Reusable Solution Corpus</h4>
+                    <p>A custom referral engine built for one roofer becomes a deployable product for the next ten. Your implementation cost drops over time.</p>
+                </div>
+                <div class="diff">
+                    <div class="diff-icon">♾️</div>
+                    <h4>Long-Term Maintenance</h4>
+                    <p>Advisory retainers keep custom builds running and give us field-level feedback on what's working. Sticky. Not transactional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ FOUNDERS ═══════ -->
+    <section class="founders" id="founders">
+        <div class="wrap">
+            <div class="eyebrow"><span class="pulse-dot"></span>Founding Team</div>
+            <h2 class="section-head">An operator.<br>A <span class="accent">product builder.</span></h2>
+            <p class="section-sub">
+                LogBrief combines deep trades operational knowledge with top-tier technical execution — the exact pairing trades businesses lack and can't hire for.
+            </p>
+
+            <div class="founders-grid">
+                <div class="founder">
+                    <div class="founder-head">
+                        <div class="founder-avatar">AS</div>
+                        <div>
+                            <div class="founder-name">Abhi Satyavarapu</div>
+                            <div class="founder-role">Operations &amp; Strategy</div>
+                        </div>
+                    </div>
+                    <p class="founder-bio">
+                        Former VP &amp; GM of the Service Division at Ackerman Trade Services (Shore Capital portco). Owned the P&amp;L, led 40+ people, drove <strong style="color: var(--text);">110% YoY revenue growth and 200% YoY EBITDA growth</strong>. Built and shipped a new Service OS — CRM, field service software, real-time job-margin tracking. Launched one of the first AI agents in the Shore portfolio for invoicing &amp; collections, compressing DSO from 3+ weeks to under 3 days. Previously McKinsey Engagement Manager.
+                    </p>
+                    <div class="founder-chips">
+                        <span class="chip">Shore Capital</span>
+                        <span class="chip">McKinsey</span>
+                        <span class="chip">Stanford GSB</span>
+                        <span class="chip">Harvard Kennedy</span>
+                    </div>
+                </div>
+
+                <div class="founder">
+                    <div class="founder-head">
+                        <div class="founder-avatar">KD</div>
+                        <div>
+                            <div class="founder-name">Kyle D'Souza</div>
+                            <div class="founder-role">Product &amp; Technology</div>
+                        </div>
+                    </div>
+                    <p class="founder-bio">
+                        Senior Product Manager at Microsoft AI, owned the Audience Targeting platform powering a <strong style="color: var(--text);">$20B Ads business</strong>. Shipped Predictive Targeting as a 0-to-<strong style="color: var(--text);">$150M ARR</strong> product and led Privacy Strategy for 250M+ Edge users. Previously Software Engineer at Cloudflare and Director at Phosphorus Cybersecurity — shipped novel protocol code and helped raise $1.25M initial funding (company has since raised $65M Series A).
+                    </p>
+                    <div class="founder-chips">
+                        <span class="chip">Microsoft AI</span>
+                        <span class="chip">Cloudflare</span>
+                        <span class="chip">Stanford MS/BS</span>
+                        <span class="chip">Top 5%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ FAQ ═══════ -->
+    <section>
+        <div class="narrow">
+            <div class="eyebrow"><span class="pulse-dot"></span>Questions</div>
+            <h2 class="section-head">Before you <span class="accent">book.</span></h2>
+            <p class="section-sub">Straight answers. No fluff.</p>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-q">What do I get for $3K–$5K? <span class="plus">+</span></div>
+                    <div class="faq-a">Two 1-hour structured interviews with your principal operators, a written roadmap identifying the top 2–3 value chains with the highest impact, tiered implementation options (DIY, assisted, custom-build) with cost and timeline for each, a training session to walk through it, and a 30-day follow-up window. Delivered in under 2 weeks.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">How is this different from ServiceTitan or another vendor? <span class="plus">+</span></div>
+                    <div class="faq-a">We're not a software vendor. We don't force rip-and-replace. We're platform-agnostic — we'll recommend Snowball, Podium, Niche AI, AccuLynx, ServiceTitan, or a custom build depending on what your business actually needs. And we stay on your side with ongoing advisory, so we're accountable for the recommendations we made.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">What if the audit isn't worth it? <span class="plus">+</span></div>
+                    <div class="faq-a">Name your price. Including $0. We only build a business if the value we deliver is obvious. The guarantee is a filter — it keeps us honest, and it lowers your risk to nearly zero.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">Who is this for? <span class="plus">+</span></div>
+                    <div class="faq-a">PE-backed trades companies in the $5M–$50M+ revenue band, and ambitious owner-operators in the $2M–$10M range. HVAC, plumbing, electrical, roofing, fire suppression, specialty contractors. If you're stuck on manual follow-up, leaking estimates, or drowning in vendor pitches — we're calibrated for you.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">Can you actually build custom software? <span class="plus">+</span></div>
+                    <div class="faq-a">Yes. Kyle is Senior Product Manager at Microsoft AI and formerly Software Engineer at Cloudflare. Custom examples: AI callback scheduling agents integrated with AccuLynx / ServiceTitan calendars, automated referral landing pages with attribution tracking, intelligent follow-up sequences for unsold estimate recapture. Tier 2 builds include 90-day maintenance.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">How fast can you start? <span class="plus">+</span></div>
+                    <div class="faq-a">Pay the deposit and we begin the audit within 24 hours. Delivery target is under 2 weeks from kickoff. Implementation scope after that is 1–4 weeks depending on whether it's vendor-based or custom.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ INVESTORS ═══════ -->
+    <section class="investors" id="investors">
+        <div class="wrap">
+            <div class="eyebrow"><span class="pulse-dot"></span>For Investors · Pre-Seed / Seed POC</div>
+            <h2 class="section-head">A services wedge into a<br><span class="accent">$1.2T</span> roll-up thesis.</h2>
+            <p class="section-sub">
+                LogBrief is a capital-efficient services business with embedded software leverage — deliberately sequenced to prove value creation before deploying acquisition capital. This page is a live POC; revenue is accruing against the targets below.
+            </p>
+
+            <div class="inv-lenses">
+                <div class="inv-lens">
+                    <div class="lens-tag">Lens 01</div>
+                    <h4><span class="h-accent">Palantir</span> for the Trades</h4>
+                    <p>A data-driven technology platform that embeds inside trades businesses, diagnoses operational inefficiency, deploys automation, and drives measurable revenue growth. Proprietary software plus deep domain implementation — serving a $1.2T U.S. industry with 90%+ AI-adoption whitespace.</p>
+                </div>
+                <div class="inv-lens">
+                    <div class="lens-tag">Lens 02</div>
+                    <h4><span class="h-accent">Fractional CTO</span> for the Trades</h4>
+                    <p>Most trades businesses can't hire a full-time CTO and have no prioritization framework for AI. LogBrief fills that gap — on-demand technology strategy, vendor evaluation, and implementation at a fraction of the cost, with incentives tied to measurable business outcomes.</p>
+                </div>
+            </div>
+
+            <div class="eyebrow"><span class="pulse-dot"></span>Market Tailwinds</div>
+            <h2 class="section-head" style="font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 32px;">Why <span class="accent">now.</span></h2>
+
+            <div class="inv-metrics">
+                <div class="inv-metric">
+                    <div class="m-label">U.S. Trades</div>
+                    <div class="m-val">$1.2T</div>
+                    <div class="m-desc">Industry in a 20–30yr growth cycle driven by aging infrastructure and population growth</div>
+                </div>
+                <div class="inv-metric">
+                    <div class="m-label">Data Centers</div>
+                    <div class="m-val green">50–60%</div>
+                    <div class="m-desc">Of hyperscaler capex flows directly to electrical contractors. AWS, Azure, GCP buildout is structural</div>
+                </div>
+                <div class="inv-metric">
+                    <div class="m-label">AI Adoption Gap</div>
+                    <div class="m-val pink">&lt; 10%</div>
+                    <div class="m-desc">Of trades companies have meaningfully adopted AI or advanced automation. Massive whitespace</div>
+                </div>
+                <div class="inv-metric">
+                    <div class="m-label">Vendor Fatigue</div>
+                    <div class="m-val orange">15–20</div>
+                    <div class="m-desc">Software pitches per week per operator. Decision fatigue is the gap we fill as trusted advocate</div>
+                </div>
+            </div>
+
+            <div class="eyebrow"><span class="pulse-dot"></span>The Roll-Up Arbitrage</div>
+            <h2 class="section-head" style="font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 20px;">Services wedge →<br><span class="accent">acquisition platform.</span></h2>
+            <p class="section-sub" style="margin-bottom: 32px;">
+                HVAC and plumbing trade at <strong style="color: var(--text);">9–12× EBITDA</strong>. Commercial electrical contractors — arguably more important long-term thanks to data center demand — trade at <strong style="color: var(--text);">6–8× EBITDA</strong>. The discount exists because investors don't understand specialty contractor scaling. We do. That's the arbitrage.
+            </p>
+
+            <div class="inv-timeline">
+                <div class="inv-stage">
+                    <div class="stage-phase">Near-Term · 0–3 months</div>
+                    <div class="stage-time">APR 2026 → JUL 2026</div>
+                    <div class="stage-target"><span class="accent">$100K</span> committed</div>
+                    <p>20–50 paying customers at $2K–$5K ACV. 250+ customer conversations, 8+ calls per day, functioning website with self-scheduling. Skycrest Roofing is the anchor validation engagement.</p>
+                </div>
+                <div class="inv-stage">
+                    <div class="stage-phase">Medium-Term · 3–12 months</div>
+                    <div class="stage-time">JUL 2026 → APR 2027</div>
+                    <div class="stage-target"><span class="accent">$100K/mo</span> recurring</div>
+                    <p>Scale recurring + project-based revenue. Build reusable product corpus from implementation engagements. 3–5 case studies with measurable ROI. Begin seed conversations ($1–4M) for operations and initial acquisitions.</p>
+                </div>
+                <div class="inv-stage">
+                    <div class="stage-phase">Long-Term · 1–4 years</div>
+                    <div class="stage-time">2027 → 2030</div>
+                    <div class="stage-target"><span class="accent">$90–100M</span> exit EV</div>
+                    <p>Series A ($20–25M) for acquisition capital. Acquire 3–5 undervalued commercial electrical / specialty contractors at 6–8× EBITDA. Apply the playbook for 20–30% annual EBITDA growth. ~$10M platform EBITDA, exit 9–10×. Founder outcome: $15–40M.</p>
+                </div>
+            </div>
+
+            <div class="eyebrow"><span class="pulse-dot"></span>Key Risks &amp; Mitigants</div>
+            <h2 class="section-head" style="font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 32px;">What could go <span class="accent">wrong.</span></h2>
+
+            <div class="inv-risks">
+                <div class="inv-risk">
+                    <div class="risk-label">Risk · Willingness to Pay</div>
+                    <h5>Trades historically resistant to software/consulting spend.</h5>
+                    <p>Operators often burned by vendors who over-promised and under-delivered.<span class="mitigant">→ Mitigant: Money-back guarantee, outcomes-based pricing, PE-backed ICPs with allocated budgets.</span></p>
+                </div>
+                <div class="inv-risk">
+                    <div class="risk-label">Risk · Vendor Fatigue</div>
+                    <h5>Trades operators drowning in 15–20 AI pitches per week.</h5>
+                    <p>Decision fatigue and skepticism are high.<span class="mitigant">→ Mitigant: Position as advocate, not vendor. Platform-agnostic. Lead with audit, not product.</span></p>
+                </div>
+                <div class="inv-risk">
+                    <div class="risk-label">Risk · Execution Complexity</div>
+                    <h5>Custom implementations may exceed 2-week delivery target.</h5>
+                    <p>Scope creep and integration surprises kill services margins.<span class="mitigant">→ Mitigant: Prioritize off-the-shelf solutions, build reusable corpus, only take custom work that generalizes.</span></p>
+                </div>
+                <div class="inv-risk">
+                    <div class="risk-label">Risk · Roll-up Execution</div>
+                    <h5>Acquisitions require deal flow, diligence, and ops bandwidth.</h5>
+                    <p>Many roll-ups fail on integration, not sourcing.<span class="mitigant">→ Mitigant: Sequence — prove services-based value creation first, then acquire with demonstrated playbook.</span></p>
+                </div>
+            </div>
+
+            <div class="inv-cta">
+                <h4>Reviewing for a pre-seed or seed check?</h4>
+                <p>We're raising $1–4M on the back of initial revenue traction to scale outbound, grow the reusable corpus, and build acquisition optionality. Request the full deck and data room below.</p>
+                <a href="mailto:kvdsouza@alumni.stanford.edu?subject=LogBrief%20-%20Investor%20Inquiry&amp;body=Hi%20Kyle%20and%20Abhi%2C%0A%0AI'd%20like%20to%20see%20the%20LogBrief%20investor%20deck%20and%20data%20room." class="btn btn--accent">Request Deck &amp; Data Room →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ BOOK CTA ═══════ -->
+    <section class="book-section" id="book">
+        <div class="book-inner">
+            <div class="eyebrow" style="justify-content: center;"><span class="pulse-dot"></span>Limited availability · April 2026</div>
+            <h2 class="book-heading">Stop leaving<br>money on the <span class="accent">table.</span></h2>
+            <p class="book-sub">
+                We're taking a limited number of audit engagements this quarter. 20-minute intro call. We'll tell you the biggest leak in your operation — whether you hire us or not.
+            </p>
+            <div class="book-actions">
+                <a href="https://calendly.com/kvdsouza" class="btn btn--accent">Schedule Intro Call →</a>
+                <a href="mailto:kvdsouza@alumni.stanford.edu?subject=LogBrief%20Audit%20Inquiry" class="btn btn--ghost">Pay Deposit &amp; Start →</a>
+            </div>
+            <div class="book-cards">
+                <div class="book-card">
+                    <h4>📅 Book a 20-min Call</h4>
+                    <p>Free. No deck. We'll listen for 10 minutes, then tell you the single biggest revenue leak we can spot — on the call.</p>
+                    <a href="https://calendly.com/kvdsouza" class="btn btn--ghost btn--sm">Choose a Time →</a>
+                </div>
+                <div class="book-card">
+                    <h4>⚡ Skip the Call</h4>
+                    <p>Email us the deposit confirmation and we'll start the audit within 24 hours. Name-your-price guarantee applies.</p>
+                    <a href="mailto:kvdsouza@alumni.stanford.edu?subject=LogBrief%20Audit%20-%20Ready%20to%20Start" class="btn btn--ghost btn--sm">Start Now →</a>
+                </div>
+            </div>
+            <div class="book-email">
+                <span>Or email the founders directly</span>
+                <a href="mailto:kvdsouza@alumni.stanford.edu">kvdsouza@alumni.stanford.edu</a>
+                &nbsp;·&nbsp;
+                <a href="mailto:abhinav.satyavarapu@gmail.com">abhinav.satyavarapu@gmail.com</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="contact">
+            Abhi Satyavarapu · <a href="tel:+17346586663">(734) 658-6663</a> &nbsp;·&nbsp;
+            Kyle D'Souza · <a href="tel:+18567615251">(856) 761-5251</a>
+        </div>
+        © 2026 LOGBRIEF — YOUR TECHNICAL ADVOCATE IN THE TRADES
+    </footer>
+
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    var intro = document.getElementById('intro');
+    var main = document.getElementById('main');
+    var topbar = document.getElementById('topbar');
+    var barFill = document.getElementById('introBarFill');
+    var pctEl = document.getElementById('introPct');
+    var progressArc = document.getElementById('progressArc');
+    var statusText = document.getElementById('introStatusText');
+    var sid = document.getElementById('sid');
+    var ARC_CIRC = 2 * Math.PI * 66;
+
+    sid.textContent = String(Math.floor(1000 + Math.random() * 9000));
+
+    var steps = [
+        { at: 0,    text: 'Booting diagnostic engine' },
+        { at: 0.12, text: 'Scanning operations' },
+        { at: 0.28, text: 'Mapping revenue leaks' },
+        { at: 0.44, text: 'Benchmarking vendor stack' },
+        { at: 0.60, text: 'Modeling value chains' },
+        { at: 0.76, text: 'Compiling roadmap' },
+        { at: 0.92, text: 'Finalizing results' }
+    ];
+    var stepIdx = -1;
+    function setStep(t) {
+        var i = 0;
+        for (var k = 0; k < steps.length; k++) if (t >= steps[k].at) i = k;
+        if (i !== stepIdx) {
+            stepIdx = i;
+            statusText.style.animation = 'none';
+            statusText.offsetHeight;
+            statusText.style.animation = '';
+            statusText.textContent = steps[i].text;
+        }
+    }
+
+    function dismissIntro() {
+        intro.classList.add('gone');
+        main.classList.add('active');
+        setTimeout(function () {
+            topbar.classList.add('visible');
+            intro.style.display = 'none';
+        }, 900);
+    }
+
+    var started = Date.now();
+    var duration = 3200;
+    function tick() {
+        var elapsed = Date.now() - started;
+        var t = Math.min(elapsed / duration, 1);
+        var eased = 1 - Math.pow(1 - t, 2.2);
+        var pct = Math.floor(eased * 100);
+        barFill.style.width = pct + '%';
+        pctEl.textContent = pct;
+        var filled = ARC_CIRC * eased;
+        progressArc.setAttribute('stroke-dasharray', filled + ' ' + (ARC_CIRC - filled));
+        setStep(eased);
+
+        if (t < 1) {
+            requestAnimationFrame(tick);
+        } else {
+            pctEl.textContent = '100';
+            barFill.style.width = '100%';
+            progressArc.setAttribute('stroke-dasharray', ARC_CIRC + ' 0');
+            statusText.style.animation = 'none';
+            statusText.offsetHeight;
+            statusText.style.animation = '';
+            statusText.textContent = 'Diagnostic complete';
+            setTimeout(dismissIntro, 650);
+        }
+    }
+    requestAnimationFrame(tick);
+
+    intro.addEventListener('click', function () {
+        if (!intro.classList.contains('gone')) dismissIntro();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
+            if (!intro.classList.contains('gone')) dismissIntro();
+        }
+    });
+
+    /* Rotating words */
+    var words = document.querySelectorAll('.rotate-wrap span');
+    var wi = 0;
+    setInterval(function () {
+        var cur = words[wi];
+        var nxt = words[(wi + 1) % words.length];
+        cur.classList.remove('active');
+        cur.classList.add('out');
+        nxt.classList.remove('out');
+        nxt.classList.add('active');
+        setTimeout(function () { cur.classList.remove('out'); }, 500);
+        wi = (wi + 1) % words.length;
+    }, 2200);
+
+    /* Smooth anchors */
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+            var id = this.getAttribute('href');
+            if (id === '#') return;
+            var el = document.querySelector(id);
+            if (el) {
+                e.preventDefault();
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    /* FAQ accordion */
+    document.querySelectorAll('.faq-item').forEach(function (item) {
+        item.addEventListener('click', function () {
+            item.classList.toggle('open');
+        });
+    });
+})();
+</script>
+</body>
+</html>
