@@ -574,8 +574,8 @@
     }
 
     .team-avatar {
-      width: 52px;
-      height: 52px;
+      width: 96px;
+      height: 96px;
       border-radius: 50%;
       background: var(--orange);
       display: flex;
@@ -583,8 +583,18 @@
       justify-content: center;
       font-size: 1.1rem;
       font-weight: 800;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
       color: var(--white);
+      overflow: hidden;
+      border: 2px solid rgba(249,115,22,0.4);
+      box-shadow: 0 4px 20px rgba(249,115,22,0.15);
+    }
+
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .team-card h3 {
@@ -910,7 +920,7 @@
     leaving money on the table.
   </h1>
   <p class="hero-sub">
-    LogBrief is a fractional CTO for the trades, and we offer a structured two-week audit to unearth and address your biggest revenue leaks and deploy working fixes. LogBrief is built by operators who have successfully run and scaled businesses within commercial trades and shipped AI products at large tech companies.
+    LogBrief offers a structured two-week audit to unearth and address your biggest revenue leaks and deploy working fixes. LogBrief is built by operators who have successfully run and scaled businesses within commercial trades and shipped AI products at large tech companies.
   </p>
   <div class="hero-actions">
     <a href="https://calendly.com/kvdsouza" target="_blank" class="btn-primary">📅 Book a Free 20-Min Call →</a>
@@ -956,7 +966,7 @@
         <h3>Core Audit</h3>
         <div class="phase-price">$3K–$5K</div>
         <div class="phase-timeline">&lt; 2 weeks · Fixed price</div>
-        <p>Two operator interviews, one written roadmap. Vendor picks, ROI, and timelines for your top revenue fixes.</p>
+        <p>A two-week diagnostic that produces a written roadmap of your highest-impact revenue fixes.</p>
         <ul class="phase-list">
           <li>Structured operator interviews</li>
           <li>Written roadmap + training session</li>
@@ -970,7 +980,7 @@
         <h3>Build & Deploy</h3>
         <div class="phase-price">$5K–$25K+</div>
         <div class="phase-timeline">1–4 weeks per solution</div>
-        <p>We configure vendor tools or build custom automations, then train your team to run them.</p>
+        <p>We deploy the fixes — vendor configurations or custom builds — and hand off working systems.</p>
         <ul class="phase-list">
           <li>Tier 1: Vendor-based ($5–$10K)</li>
           <li>Tier 2: Custom automations ($10–$25K+)</li>
@@ -984,7 +994,7 @@
         <h3>Ongoing Partner</h3>
         <div class="phase-price">$1K–$2.5K</div>
         <div class="phase-timeline">Per quarter</div>
-        <p>Quarterly reviews, ongoing maintenance, and vendor management — so you're never alone with the stack.</p>
+        <p>We stay on your side — keeping things running and prioritizing what to build next.</p>
         <ul class="phase-list">
           <li>Quarterly operational reviews</li>
           <li>Maintenance + uptime support</li>
@@ -1005,7 +1015,7 @@
 <section id="icp" style="background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
   <div class="container">
     <div class="section-label">Who We're Geared To Help</div>
-    <h2 class="section-title">Who we're geared to help.</h2>
+    <h2 class="section-title">Who we're geared to help</h2>
     <div class="icp-grid">
       <div class="icp-card">
         <div class="icp-type">Primary</div>
@@ -1064,7 +1074,7 @@
     <p class="section-sub">LogBrief combines deep trades operational knowledge with top-tier technical execution — the exact pairing trades businesses lack and can't hire for.</p>
     <div class="team-grid">
       <div class="team-card">
-        <div class="team-avatar">AS</div>
+        <div class="team-avatar"><img src="headshots/abhiHeadshot.png" alt="Abhi Satyavarapu" /></div>
         <h3>Abhi Satyavarapu</h3>
         <div class="role">Operations &amp; Strategy</div>
         <p>Former VP and General Manager of a commercial trades service business. Grew the business 3x in 18 months and rebuilt the full tech stack. Formerly an Engagement Manager in technology and strategy at McKinsey &amp; Company.</p>
@@ -1076,7 +1086,7 @@
         </div>
       </div>
       <div class="team-card">
-        <div class="team-avatar">KD</div>
+        <div class="team-avatar"><img src="headshots/KyleOGheadshot.png" alt="Kyle D'Souza" /></div>
         <h3>Kyle D'Souza</h3>
         <div class="role">Product &amp; Technology</div>
         <p>Senior Product Manager at Microsoft AI, owned the Audience Targeting platform powering a $20B Ads business. 
