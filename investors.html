@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LogBrief — For Investors</title>
+  <meta name="description" content="LogBrief is a services wedge into a $1.2T trades roll-up thesis. Pre-seed / seed POC overview." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --orange: #f97316;
+      --orange-dark: #ea580c;
+      --green: #10b981;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--orange); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--gray-400);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    section { padding: 6rem 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-sub {
+      color: var(--gray-400);
+      font-size: 1.05rem;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      padding: 0.875rem 2rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+
+    .investor { background: rgba(255,255,255,0.015); padding-top: 8rem; }
+
+    .lens-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 640px) { .lens-grid { grid-template-columns: 1fr; } }
+
+    .lens-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+    .lens-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-bottom: 0.5rem;
+    }
+    .lens-card h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    .lens-card p {
+      font-size: 0.875rem;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .market-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .market-card .big {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--orange);
+      display: block;
+    }
+    .market-card h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin: 0.5rem 0 0.4rem;
+    }
+    .market-card p {
+      font-size: 0.8rem;
+      color: var(--gray-500);
+      line-height: 1.4;
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .timeline-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+    .timeline-card .tl-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-bottom: 0.25rem;
+    }
+    .timeline-card .tl-date {
+      font-size: 0.8rem;
+      color: var(--gray-500);
+      margin-bottom: 0.75rem;
+    }
+    .timeline-card .tl-goal {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .timeline-card p {
+      font-size: 0.875rem;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    footer {
+      padding: 2.5rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      color: var(--gray-600);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">LOG<span>BRIEF</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">← Back to Site</a></li>
+  </ul>
+</nav>
+
+<section id="investors" class="investor">
+  <div class="container">
+    <div class="section-label">For Investors · Pre-Seed / Seed POC</div>
+    <h2 class="section-title">A services wedge into a $1.2T roll-up thesis.</h2>
+    <p class="section-sub">LogBrief is a capital-efficient services business with embedded software leverage — deliberately sequenced to prove value creation before deploying acquisition capital.</p>
+
+    <div class="lens-grid">
+      <div class="lens-card">
+        <div class="lens-num">Lens 01</div>
+        <h3>The Operating System for Trades Revenue</h3>
+        <p>A data-driven technology platform that embeds inside trades businesses, diagnoses operational inefficiency, deploys automation, and drives measurable revenue growth. Proprietary software plus deep domain implementation — serving a $1.2T U.S. industry with 90%+ AI-adoption whitespace.</p>
+      </div>
+      <div class="lens-card">
+        <div class="lens-num">Lens 02</div>
+        <h3>Fractional CTO for the Trades</h3>
+        <p>Most trades businesses can't hire a full-time CTO and have no prioritization framework for AI. LogBrief fills that gap — on-demand technology strategy, vendor evaluation, and implementation at a fraction of the cost, with incentives tied to measurable business outcomes.</p>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-bottom: 1rem;">Market Tailwinds — Why Now</div>
+    <div class="market-grid">
+      <div class="market-card">
+        <span class="big">$1.2T</span>
+        <h4>U.S. Trades</h4>
+        <p>Industry in a 20–30yr growth cycle driven by aging infrastructure and population growth</p>
+      </div>
+      <div class="market-card">
+        <span class="big">50–60%</span>
+        <h4>Data Centers</h4>
+        <p>Of hyperscaler capex flows directly to electrical contractors. AWS, Azure, GCP buildout is structural</p>
+      </div>
+      <div class="market-card">
+        <span class="big">&lt; 10%</span>
+        <h4>AI Adoption Gap</h4>
+        <p>Of trades companies have meaningfully adopted AI or advanced automation. Massive whitespace</p>
+      </div>
+      <div class="market-card">
+        <span class="big">15–20</span>
+        <h4>Vendor Fatigue</h4>
+        <p>Software pitches per week per operator. Decision fatigue is the gap we fill as trusted advocate</p>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-bottom: 1rem;">The Roll-Up Arbitrage — Services wedge → acquisition platform</div>
+    <div class="timeline-grid">
+      <div class="timeline-card">
+        <div class="tl-label">Near-Term · 0–3 months</div>
+        <div class="tl-date">APR 2026 → JUL 2026</div>
+        <div class="tl-goal">$100K committed</div>
+        <p>20–50 paying customers at $2K–$5K ACV. 250+ customer conversations, 8+ calls per day, functioning website with self-scheduling. Skycrest Roofing is the anchor validation engagement.</p>
+      </div>
+      <div class="timeline-card">
+        <div class="tl-label">Medium-Term · 3–12 months</div>
+        <div class="tl-date">JUL 2026 → APR 2027</div>
+        <div class="tl-goal">$100K/mo recurring</div>
+        <p>Scale recurring + project-based revenue. Build reusable product corpus from implementation engagements. 3–5 case studies with measurable ROI. Begin seed conversations ($1–4M) for operations and initial acquisitions.</p>
+      </div>
+      <div class="timeline-card">
+        <div class="tl-label">Long-Term · 1–4 years</div>
+        <div class="tl-date">2027 → 2030</div>
+        <div class="tl-goal">$90–100M exit EV</div>
+        <p>Series A ($20–25M) for acquisition capital. Acquire 3–5 undervalued commercial electrical / specialty contractors at 6–8× EBITDA. Apply the playbook for 20–30% annual EBITDA growth. Founder outcome: $15–40M.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 2rem;">
+      <p style="color: var(--gray-400); margin-bottom: 1.25rem; font-size: 0.95rem;">Reviewing for a pre-seed or seed check? We're raising $1–4M on the back of initial revenue traction.</p>
+      <a href="mailto:kvdsouza@alumni.stanford.edu?subject=LogBrief%20-%20Investor%20Inquiry" class="btn-primary">Request Deck &amp; Data Room →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="margin-bottom: 0.5rem;"><strong style="color: var(--white);">LOGBRIEF</strong></p>
+  <p>© 2026 LogBrief. Your technical advocate in the trades.</p>
+  <p style="margin-top: 0.5rem;"><a href="mailto:kvdsouza@alumni.stanford.edu" style="color: var(--orange); text-decoration: none;">kvdsouza@alumni.stanford.edu</a></p>
+</footer>
+
+</body>
+</html>
