@@ -306,6 +306,64 @@
     }
 
     /* ─── PHASES ─── */
+    /* PROJECT TYPES */
+    .project-types-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    .project-type-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color 0.2s;
+    }
+    .project-type-card:hover {
+      border-color: rgba(249,115,22,0.3);
+    }
+    .project-type-number {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      opacity: 0.7;
+    }
+    .project-type-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.35;
+    }
+    .project-type-card p {
+      color: var(--gray-400);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      flex: 1;
+    }
+    .project-type-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+    .pt-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--orange);
+      background: rgba(249,115,22,0.08);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+    }
+
     .phases-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -923,7 +981,7 @@
     LogBrief offers a structured two-week audit to unearth and address your biggest revenue leaks and deploy working fixes. LogBrief is built by operators who have successfully run and scaled businesses within commercial trades and shipped AI products at large tech companies.
   </p>
   <div class="hero-actions">
-    <a href="https://calendly.com/kvdsouza" target="_blank" class="btn-primary">📅 Book a Free 20-Min Call →</a>
+    <a href="https://calendly.com/abhi-logbrief/30min" target="_blank" class="btn-primary">📅 Book a Free 20-Min Call →</a>
     <a href="#phases" class="btn-secondary">See How It Works</a>
   </div>
 </section>
@@ -973,7 +1031,7 @@
           <li>Tiered options: DIY · Assisted · Custom</li>
           <li>30-day follow-up window</li>
         </ul>
-        <a href="https://calendly.com/kvdsouza" target="_blank" class="phase-btn">Start Audit →</a>
+        <a href="https://calendly.com/abhi-logbrief/30min" target="_blank" class="phase-btn">Start Audit →</a>
       </div>
       <div class="phase-card">
         <span class="phase-tag">Phase B · Implementation</span>
@@ -1007,6 +1065,73 @@
 
     <div class="guarantee">
       <p>Our guarantee: <strong>if the roadmap isn't worth the cost, name your price — including $0.</strong> We stand behind the value we deliver.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT TYPES -->
+<section id="project-types">
+  <div class="container">
+    <div class="section-label">What We Build</div>
+    <h2 class="section-title">Five projects we've mastered.</h2>
+    <p class="section-sub">These are the highest-leverage fixes we see across trades businesses. If your business has one of these gaps, we already know how to close it.</p>
+    <div class="project-types-grid">
+
+      <div class="project-type-card">
+        <div class="project-type-number">01</div>
+        <h3>Website Redesign &amp; AI-Native SEO</h3>
+        <p>Your website is your 24/7 sales rep. We rebuild it to rank in AI-powered search and convert visitors into booked jobs — not just clicks.</p>
+        <div class="project-type-tags">
+          <span class="pt-tag">Google AI Overviews</span>
+          <span class="pt-tag">Local SEO</span>
+          <span class="pt-tag">Conversion CRO</span>
+        </div>
+      </div>
+
+      <div class="project-type-card">
+        <div class="project-type-number">02</div>
+        <h3>Turning Your Customer Base Into a Referral Source</h3>
+        <p>Your best leads are already customers. We build automated referral programs that turn completed jobs into a steady stream of warm introductions.</p>
+        <div class="project-type-tags">
+          <span class="pt-tag">Referral Automation</span>
+          <span class="pt-tag">CRM Integration</span>
+          <span class="pt-tag">Incentive Design</span>
+        </div>
+      </div>
+
+      <div class="project-type-card">
+        <div class="project-type-number">03</div>
+        <h3>After-Hours Calls &amp; Scheduling</h3>
+        <p>Leads don't wait until 9am. We deploy AI-powered answering and scheduling that captures calls, books jobs, and routes emergencies — while your team sleeps.</p>
+        <div class="project-type-tags">
+          <span class="pt-tag">AI Voice Agents</span>
+          <span class="pt-tag">Auto-Scheduling</span>
+          <span class="pt-tag">Emergency Routing</span>
+        </div>
+      </div>
+
+      <div class="project-type-card">
+        <div class="project-type-number">04</div>
+        <h3>Accounts Receivable Capture</h3>
+        <p>Stop chasing unpaid invoices manually. We build automated AR capture workflows that track outstanding balances, send timed follow-ups, and reduce days-outstanding — without your office staff making awkward calls.</p>
+        <div class="project-type-tags">
+          <span class="pt-tag">Invoice Automation</span>
+          <span class="pt-tag">Collections Workflow</span>
+          <span class="pt-tag">Days Outstanding</span>
+        </div>
+      </div>
+
+      <div class="project-type-card">
+        <div class="project-type-number">05</div>
+        <h3>Customer Follow-Ups Post-Estimate</h3>
+        <p>Most trades businesses send one quote and hope. We build automated follow-up sequences that nudge prospects at the right moment — without your team lifting a finger.</p>
+        <div class="project-type-tags">
+          <span class="pt-tag">Automated Outreach</span>
+          <span class="pt-tag">Close Rate Lift</span>
+          <span class="pt-tag">Pipeline Visibility</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1160,7 +1285,7 @@
     <div class="cta-card">
       <h3>📅 Book a 20-Min Call</h3>
       <p>Free. No deck. We'll listen for 10 minutes, then tell you the single biggest revenue leak we can spot — on the call.</p>
-      <a href="https://calendly.com/kvdsouza" target="_blank" class="btn-primary" style="display:inline-flex;">Choose a Time →</a>
+      <a href="https://calendly.com/abhi-logbrief/30min" target="_blank" class="btn-primary" style="display:inline-flex;">Choose a Time →</a>
     </div>
     <div class="cta-card">
       <h3>⚡ Skip the Call</h3>
