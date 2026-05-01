@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LogBrief — Your tech partner in the trades.</title>
+  <title>LogBrief — Your tech partner in the trades</title>
   <meta name="description" content="LogBrief is a fractional CTO for the trades. A structured 2-week audit that finds your biggest revenue leaks and deploys working fixes." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -11,8 +11,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #0a0a0a;
-      --white: #ffffff;
+      --black: #faf9f7;
+      --white: #1a1917;
       --gray-50: #f9fafb;
       --gray-100: #f3f4f6;
       --gray-200: #e5e7eb;
@@ -50,9 +50,9 @@
       align-items: center;
       justify-content: space-between;
       padding: 1.25rem 2rem;
-      background: rgba(10,10,10,0.85);
+      background: rgba(250,249,247,0.92);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
     }
 
     .nav-logo {
@@ -279,10 +279,11 @@
     }
 
     .pain-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.08);
       border-radius: 12px;
       padding: 1.75rem;
+      position: relative;
     }
 
     .pain-card .pain-num {
@@ -307,25 +308,14 @@
 
     /* ─── PHASES ─── */
     /* PROJECT TYPES */
+    .project-type-icon { color: var(--orange); margin-bottom: 0.25rem; }
     .project-types-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.25rem;
       margin-top: 3rem;
     }
-    .project-type-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 16px;
-      padding: 1.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      transition: border-color 0.2s;
-    }
-    .project-type-card:hover {
-      border-color: rgba(249,115,22,0.3);
-    }
+
     .project-type-number {
       font-size: 0.7rem;
       font-weight: 700;
@@ -333,6 +323,16 @@
       text-transform: uppercase;
       color: var(--orange);
       opacity: 0.7;
+    }
+    .project-type-card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
     }
     .project-type-card h3 {
       font-size: 1rem;
@@ -371,16 +371,14 @@
       margin-top: 3rem;
     }
 
-    .phase-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
+    .phase-card { display: flex; flex-direction: column;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.08);
       border-radius: 16px;
       padding: 2rem;
       position: relative;
-      transition: border-color 0.2s;
-    }
+      }
 
-    .phase-card:hover { border-color: rgba(249,115,22,0.3); }
 
     .phase-tag {
       font-size: 0.7rem;
@@ -445,7 +443,7 @@
       margin-top: 0.05em;
     }
 
-    .phase-btn {
+    .phase-btn { margin-top: auto;
       display: inline-block;
       background: var(--orange);
       color: var(--white);
@@ -470,7 +468,7 @@
     /* ─── CASE STUDY ─── */
     .case-study {
       background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(0,0,0,0.09);
       border-radius: 16px;
       padding: 2.5rem;
       margin-top: 3rem;
@@ -543,10 +541,11 @@
     }
 
     .icp-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.08);
       border-radius: 16px;
       padding: 2rem;
+      position: relative;
     }
 
     .icp-card .icp-type {
@@ -592,10 +591,11 @@
     }
 
     .why-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.08);
       border-radius: 12px;
       padding: 1.75rem;
+      position: relative;
     }
 
     .why-card .icon {
@@ -625,15 +625,16 @@
     }
 
     .team-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.08);
       border-radius: 16px;
       padding: 2rem;
+      position: relative;
     }
 
     .team-avatar {
-      width: 96px;
-      height: 96px;
+      width: 116px;
+      height: 116px;
       border-radius: 50%;
       background: var(--orange);
       display: flex;
@@ -651,6 +652,8 @@
     .team-avatar img {
       width: 100%;
       height: 100%;
+      transform: scale(2.0);
+      transform-origin: center 28%;
       object-fit: cover;
       display: block;
     }
@@ -690,7 +693,7 @@
       border-radius: 4px;
       background: rgba(255,255,255,0.06);
       color: var(--gray-400);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(0,0,0,0.09);
     }
 
     /* ─── FAQ ─── */
@@ -701,11 +704,11 @@
       gap: 1px;
       border-radius: 12px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.07);
+      border: 1px solid rgba(0,0,0,0.08);
     }
 
     .faq-item {
-      background: rgba(255,255,255,0.02);
+      background: rgba(255,255,255,0.6);
     }
 
     .faq-q {
@@ -726,7 +729,7 @@
       transition: background 0.2s;
     }
 
-    .faq-q:hover { background: rgba(255,255,255,0.04); }
+    .faq-q:hover { background: rgba(255,255,255,0.9); }
 
     .faq-q .arrow {
       color: var(--orange);
@@ -749,7 +752,7 @@
     .faq-item.open .faq-a { display: block; }
 
     /* ─── INVESTOR ─── */
-    .investor { background: rgba(255,255,255,0.015); }
+    .investor { background: rgba(0,0,0,0.02); }
 
     .lens-grid {
       display: grid;
@@ -762,8 +765,8 @@
     @media (max-width: 640px) { .lens-grid { grid-template-columns: 1fr; } }
 
     .lens-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.08);
       border-radius: 12px;
       padding: 1.75rem;
     }
@@ -797,8 +800,8 @@
     }
 
     .market-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.08);
       border-radius: 12px;
       padding: 1.5rem;
       text-align: center;
@@ -831,8 +834,8 @@
     }
 
     .timeline-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(0,0,0,0.08);
       border-radius: 12px;
       padding: 1.75rem;
     }
@@ -871,6 +874,7 @@
       text-align: center;
       padding: 7rem 1.5rem;
       border-top: 1px solid rgba(255,255,255,0.06);
+      position: relative;
     }
 
     .cta-section h2 {
@@ -899,10 +903,11 @@
     }
 
     .cta-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.09);
       border-radius: 16px;
       padding: 1.75rem;
+      position: relative;
     }
 
     .cta-card h3 {
@@ -955,7 +960,119 @@
       .hero-stats { gap: 2rem; }
       .team-grid { grid-template-columns: 1fr; }
     }
+  
+    /* ── UNIVERSAL FLOAT + FADE HOVER ───────────────────────────────────── */
+    .pain-card,
+    .phase-card,
+    .project-type-card,
+    .icp-card,
+    .why-card,
+    .team-card,
+    .cta-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .pain-card::after,
+    .phase-card::after,
+    .project-type-card::after,
+    .icp-card::after,
+    .why-card::after,
+    .team-card::after,
+    .cta-card::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: calc(var(--card-radius, 16px) + 2px);
+      border: 2.5px solid rgba(249,115,22,0.85);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .pain-card:hover,
+    .phase-card:hover,
+    .project-type-card:hover,
+    .icp-card:hover,
+    .why-card:hover,
+    .team-card:hover,
+    .cta-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 40px rgba(249,115,22,0.14);
+    }
+    .pain-card:hover::after,
+    .phase-card:hover::after,
+    .project-type-card:hover::after,
+    .icp-card:hover::after,
+    .why-card:hover::after,
+    .team-card:hover::after,
+    .cta-card:hover::after {
+      opacity: 1;
+    }
+    /* ─────────────────────────────────────────────────────────────────────── */
+
+  
+    /* ── HERO TEXTURE — faint mechanical grid, fades out at ~55% ── */
+    .hero {
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(60,60,60,0.10) 1.5px, transparent 1.5px),
+        linear-gradient(rgba(60,60,60,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(60,60,60,0.04) 1px, transparent 1px);
+      background-size: 38px 38px;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 38%, transparent 58%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 38%, transparent 58%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Keep hero children above the texture */
+    .hero > * { position: relative; z-index: 1; }
+
+  
+    /* Abhi — face sits high, tighter crop */
+    .team-avatar img[alt="Abhi Satyavarapu"] {
+      transform: scale(1.75);
+      transform-origin: 54% top;
+    }
+    /* Kyle — face sits slightly lower */
+    .team-avatar img[alt="Kyle D'Souza"] {
+      transform: scale(1.7);
+      transform-origin: center 30%;
+    }
+  
+    /* ── CTA SECTION TEXTURE — same grid, fades in from bottom ── */
+    .cta-section {
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(60,60,60,0.10) 1.5px, transparent 1.5px),
+        linear-gradient(rgba(60,60,60,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(60,60,60,0.04) 1px, transparent 1px);
+      background-size: 38px 38px;
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 38%, transparent 58%);
+      mask-image: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 38%, transparent 58%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cta-section > * { position: relative; z-index: 1; }
   </style>
+
+<style id="light-override">
+  .phase-card, .icp-card, .why-card, .pain-card, .team-card, .cta-card, .project-type-card { box-shadow: 0 1px 12px rgba(0,0,0,0.06); }
+  .hero { background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(249,115,22,0.07) 0%, transparent 65%) !important; }
+  .guarantee { background: rgba(249,115,22,0.06) !important; border-color: rgba(249,115,22,0.2) !important; }
+  .phase-tag { background: rgba(249,115,22,0.1) !important; }
+  .hero-label { background: rgba(249,115,22,0.1) !important; border-color: rgba(249,115,22,0.25) !important; }
+  .btn-secondary { border-color: rgba(0,0,0,0.15) !important; color: #1a1917 !important; }
+  .nav-links a { color: #444 !important; }
+  .rotating-word { color: var(--orange) !important; }
+</style>
 </head>
 <body>
 
@@ -972,13 +1089,13 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">Your tech partner in the trades.</div>
+  <div class="hero-badge">Your tech partner in the trades</div>
   <h1>
     Your <span class="rotate-word">HVAC</span> business is<br/>
     leaving money on the table.
   </h1>
   <p class="hero-sub">
-    LogBrief offers a structured two-week audit to unearth and address your biggest revenue leaks and deploy working fixes. LogBrief is built by operators who have successfully run and scaled businesses within commercial trades and shipped AI products at large tech companies.
+    LogBrief is built by operators who've run trades businesses and built AI products.
   </p>
   <div class="hero-actions">
     <a href="https://calendly.com/abhi-logbrief/30min" target="_blank" class="btn-primary">📅 Book a Free 20-Min Call →</a>
@@ -987,44 +1104,44 @@
 </section>
 
 <!-- PAIN POINTS -->
-<section>
+<section style="background: rgba(0,0,0,0.015); border-top: 1px solid rgba(0,0,0,0.06); border-bottom: 1px solid rgba(0,0,0,0.06);">
   <div class="container">
     <div class="section-label">The Problem</div>
     <h2 class="section-title">The trades are being left behind.</h2>
-    <p class="section-sub">90% of trades businesses haven't meaningfully adopted AI or automation. The gap keeps widening.</p>
+    <p class="section-sub">90% of trades businesses haven't adopted AI or automation. The gap keeps widening.</p>
     <div class="pain-grid">
       <div class="pain-card">
         <span class="pain-num">15–20</span>
         <h3>Vendor pitches / week</h3>
-        <p>Software vendors pitch your team constantly. Decision fatigue is real. You need an advocate, not another vendor.</p>
+        <p>Software vendors pitch your team every week. You need someone on your side picking the right tools, not another sales rep.</p>
       </div>
       <div class="pain-card">
         <span class="pain-num">3+ mo</span>
         <h3>ServiceTitan rollout</h3>
-        <p>Industry-standard tools take months to implement — and you're stuck hand-holding the rollout.</p>
+        <p>Industry-standard tools take months to implement, and you're stuck running the rollout yourself.</p>
       </div>
       <div class="pain-card">
         <span class="pain-num">$1.2T</span>
         <h3>Industry in growth cycle</h3>
-        <p>U.S. trades industry is in a 20–30 year growth cycle. The businesses that adopt now win exponentially.</p>
+        <p>U.S. trades is in a bull run. The businesses adopting tech now will pull ahead of the rest.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PHASES -->
-<section id="phases" style="background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+<section id="phases">
   <div class="container">
     <div class="section-label">The Flywheel</div>
     <h2 class="section-title">Three phases. One tech partner.</h2>
-    <p class="section-sub">We don't sell software. We don't force rip-and-replace. We diagnose, implement, and maintain — at a fraction of the cost of a full-time CTO.</p>
+    <p class="section-sub">We diagnose, implement, and maintain. It's like having a full-time engineer on staff.</p>
     <div class="phases-grid">
       <div class="phase-card">
         <span class="phase-tag">Phase A · Audit</span>
         <h3>Core Audit</h3>
         <div class="phase-price">$3K–$5K</div>
         <div class="phase-timeline">&lt; 2 weeks · Fixed price</div>
-        <p>A two-week diagnostic that produces a written roadmap of your highest-impact revenue fixes.</p>
+        <p>A two-week diagnostic with a written roadmap of the fixes that will make you the most money.</p>
         <ul class="phase-list">
           <li>Structured operator interviews</li>
           <li>Written roadmap + training session</li>
@@ -1036,41 +1153,41 @@
       <div class="phase-card">
         <span class="phase-tag">Phase B · Implementation</span>
         <h3>Build & Deploy</h3>
-        <div class="phase-price">$5K–$25K+</div>
+        <div class="phase-price">$2K–$20K+</div>
         <div class="phase-timeline">1–4 weeks per solution</div>
-        <p>We deploy the fixes — vendor configurations or custom builds — and hand off working systems.</p>
+        <p>We deploy the fixes (vendor configurations or custom builds) and hand off working systems.</p>
         <ul class="phase-list">
-          <li>Tier 1: Vendor-based ($5–$10K)</li>
-          <li>Tier 2: Custom automations ($10–$25K+)</li>
+          <li>Tier 1: Vendor-based ($2–$8K)</li>
+          <li>Tier 2: Custom automations ($8–$20K+)</li>
           <li>CRM integration · Staff training</li>
           <li>90-day maintenance on custom builds</li>
         </ul>
-        <a href="mailto:kvdsouza@alumni.stanford.edu?subject=LogBrief%20-%20Discuss%20Scope" class="phase-btn phase-btn-outline">Discuss Scope →</a>
+        <a href="mailto:kyle@logbrief.com,abhi@logbrief.com?subject=LogBrief%20-%20Discuss%20Scope" class="phase-btn phase-btn-outline">Discuss Scope →</a>
       </div>
       <div class="phase-card">
         <span class="phase-tag">Phase C · Advisory</span>
         <h3>Ongoing Partner</h3>
         <div class="phase-price">$1K–$2.5K</div>
         <div class="phase-timeline">Per quarter</div>
-        <p>We stay on your side — keeping things running and prioritizing what to build next.</p>
+        <p>We stay on your side, keep things running, and help you prioritize what to build next.</p>
         <ul class="phase-list">
           <li>Quarterly operational reviews</li>
           <li>Maintenance + uptime support</li>
           <li>Vendor renewals + negotiation</li>
           <li>Ad-hoc advisory between check-ins</li>
         </ul>
-        <a href="mailto:kyle@logbrief.com?subject=LogBrief%20-%20Become%20a%20Partner" class="phase-btn phase-btn-outline">Become a Partner →</a>
+        <a href="mailto:kyle@logbrief.com,abhi@logbrief.com?subject=LogBrief%20-%20Become%20a%20Partner" class="phase-btn phase-btn-outline">Become a Partner →</a>
       </div>
     </div>
 
     <div class="guarantee">
-      <p>Our guarantee: <strong>if the roadmap isn't worth the cost, name your price — including $0.</strong> We stand behind the value we deliver.</p>
+      <p>Our guarantee: <strong>if the roadmap isn't worth the cost, name your price. Including $0.</strong></p>
     </div>
   </div>
 </section>
 
 <!-- PROJECT TYPES -->
-<section id="project-types">
+<section id="project-types" style="background: rgba(0,0,0,0.015); border-top: 1px solid rgba(0,0,0,0.06); border-bottom: 1px solid rgba(0,0,0,0.06);">
   <div class="container">
     <div class="section-label">What We Build</div>
     <h2 class="section-title">Our core offerings.</h2>
@@ -1078,9 +1195,9 @@
     <div class="project-types-grid">
 
       <div class="project-type-card">
-        <div class="project-type-number">01</div>
+        <div class="project-type-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
         <h3>Website Redesign &amp; AI-Native SEO</h3>
-        <p>Your website is your 24/7 sales rep. We rebuild it to rank in AI-powered search and convert visitors into booked jobs — not just clicks.</p>
+        <p>Your website is your 24/7 sales rep. We rebuild it to rank in AI search and turn visitors into booked jobs.</p>
         <div class="project-type-tags">
           <span class="pt-tag">Google AI Overviews</span>
           <span class="pt-tag">Local SEO</span>
@@ -1089,9 +1206,9 @@
       </div>
 
       <div class="project-type-card">
-        <div class="project-type-number">02</div>
+        <div class="project-type-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <h3>Turning Your Customer Base Into a Referral Source</h3>
-        <p>Your best leads are already customers. We build automated referral programs that turn completed jobs into a steady stream of warm introductions.</p>
+        <p>Your best leads are already your customers. We build automated referral programs that turn completed jobs into new ones.</p>
         <div class="project-type-tags">
           <span class="pt-tag">Referral Automation</span>
           <span class="pt-tag">CRM Integration</span>
@@ -1100,9 +1217,9 @@
       </div>
 
       <div class="project-type-card">
-        <div class="project-type-number">03</div>
+        <div class="project-type-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
         <h3>After-Hours Calls &amp; Scheduling</h3>
-        <p>Leads don't wait until 9am. We deploy AI-powered answering and scheduling that captures calls, books jobs, and routes emergencies — while your team sleeps.</p>
+        <p>Leads don't wait until 9am. We set up AI answering and scheduling that captures calls, books jobs, and routes emergencies overnight.</p>
         <div class="project-type-tags">
           <span class="pt-tag">AI Voice Agents</span>
           <span class="pt-tag">Auto-Scheduling</span>
@@ -1111,9 +1228,9 @@
       </div>
 
       <div class="project-type-card">
-        <div class="project-type-number">04</div>
+        <div class="project-type-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
         <h3>Accounts Receivable Capture</h3>
-        <p>Stop chasing unpaid invoices manually. We build automated AR capture workflows that track outstanding balances, send timed follow-ups, and reduce days-outstanding — without your office staff making awkward calls.</p>
+        <p>Stop chasing unpaid invoices by hand. We build automated AR workflows that track balances, send timed follow-ups, and bring down days-outstanding so your office staff stops making awkward calls.</p>
         <div class="project-type-tags">
           <span class="pt-tag">Invoice Automation</span>
           <span class="pt-tag">Collections Workflow</span>
@@ -1122,9 +1239,9 @@
       </div>
 
       <div class="project-type-card">
-        <div class="project-type-number">05</div>
-        <h3>Customer Follow-Ups Post-Estimate</h3>
-        <p>Most trades businesses send one quote and hope. We build automated follow-up sequences that nudge prospects at the right moment — without your team lifting a finger.</p>
+        <div class="project-type-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <h3>Customer Follow-Ups</h3>
+        <p>Most trades businesses send one quote and hope. We build follow-up sequences that nudge prospects automatically, so your team doesn't have to.</p>
         <div class="project-type-tags">
           <span class="pt-tag">Automated Outreach</span>
           <span class="pt-tag">Close Rate Lift</span>
@@ -1137,64 +1254,59 @@
 </section>
 
 <!-- WHO WE HELP -->
-<section id="icp" style="background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+<section id="icp">
   <div class="container">
     <div class="section-label">Who We're Geared To Help</div>
-    <h2 class="section-title">Who we're geared to help</h2>
+    <h2 class="section-title">Our target customers.</h2>
     <div class="icp-grid">
       <div class="icp-card">
-        <div class="icp-type">Primary</div>
+        
         <h3>PE-Backed Trades Companies</h3>
         <div class="icp-range">$5M–$50M+ revenue</div>
-        <p>Growth-mandated by investors with allocated tech and marketing budgets. Data-aware but thin on technical execution — overwhelmed by vendors and prior software rollouts that underdelivered.</p>
+        <p>Investors are pushing for growth and there's budget for tech and marketing. The team knows the data matters but doesn't have the technical horsepower in-house. They're tired of vendor pitches and software rollouts that didn't deliver.</p>
       </div>
       <div class="icp-card">
-        <div class="icp-type">Secondary</div>
+        
         <h3>Growth-Oriented Owner-Operators</h3>
         <div class="icp-range">$2M–$10M revenue</div>
-        <p>Owners who see the need but can't hire for it. Leads lost to poor follow-up, referral programs underperforming, manual processes bottlenecking growth.</p>
+        <p>Owners who know they need this but can't find someone to hire. Leads getting lost to slow follow-up, referrals drying up, manual work holding the business back.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- WHY LOGBRIEF -->
-<section>
+<section style="background: rgba(0,0,0,0.015); border-top: 1px solid rgba(0,0,0,0.06); border-bottom: 1px solid rgba(0,0,0,0.06);">
   <div class="container">
     <div class="section-label">Why LogBrief</div>
     <h2 class="section-title">Your tech partner.</h2>
-    <p class="section-sub">Pure-software plays require rip-and-replace. Pure consultants hand you a PDF and vanish. We do both — and stay on your side.</p>
+    <p class="section-sub">We’re your business and technology advocate. We don’t take vendor kickbacks and we’re not selling our own software. We just tell you what’ll work.</p>
     <div class="why-grid">
       <div class="why-card">
         <span class="icon">🔬</span>
-        <h3>Systematic, Agent-Assisted Audits</h3>
-        <p>Our audit is structured, repeatable, and accelerated by AI tooling. Every engagement makes the next one faster and cheaper to deliver.</p>
+        <h3>Systematic, Structured Audits</h3>
+        <p>Our audit is structured to find the biggest revenue and tech opportunities in your business. We don’t care what platform you’re on.</p>
       </div>
       <div class="why-card">
         <span class="icon">🤝</span>
         <h3>Platform-Agnostic Vendor Relationships</h3>
-        <p>We recommend what actually works. As we scale, preferential vendor relationships and pattern recognition across verticals compound.</p>
-      </div>
-      <div class="why-card">
-        <span class="icon">🧩</span>
-        <h3>Reusable Solution Corpus</h3>
-        <p>A custom referral engine built for one roofer becomes a deployable product for the next ten. Your implementation cost drops over time.</p>
+        <p>We recommend what actually works.</p>
       </div>
       <div class="why-card">
         <span class="icon">♾️</span>
         <h3>Long-Term Maintenance</h3>
-        <p>Advisory retainers keep custom builds running and give us field-level feedback on what's working. Sticky. Not transactional.</p>
+        <p>Advisory retainers keep your custom builds running and give us feedback from the field on what's working. We stick around. We're not here to flip and leave.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- TEAM -->
-<section id="team" style="background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+<section id="team">
   <div class="container">
     <div class="section-label">Founding Team</div>
-    <h2 class="section-title">An operator. A product builder.</h2>
-    <p class="section-sub">LogBrief combines deep trades operational knowledge with top-tier technical execution — the exact pairing trades businesses lack and can't hire for.</p>
+    <h2 class="section-title">We are operators and product builders.</h2>
+    <p class="section-sub">We combine deep trades operational knowledge with top-tier technical talent. This is a combination that trades businesses cannot hire for.</p>
     <div class="team-grid">
       <div class="team-card">
         <div class="team-avatar"><img src="headshots/abhiHeadshot.png" alt="Abhi Satyavarapu" /></div>
@@ -1229,11 +1341,11 @@
 </section>
 
 <!-- FAQ -->
-<section>
+<section style="background: rgba(0,0,0,0.015); border-top: 1px solid rgba(0,0,0,0.06); border-bottom: 1px solid rgba(0,0,0,0.06);">
   <div class="container">
     <div class="section-label">Questions</div>
     <h2 class="section-title">Before you book.</h2>
-    <p class="section-sub">Straight answers. No fluff.</p>
+    
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
@@ -1278,17 +1390,17 @@
 <!-- CTA -->
 <section id="book" class="cta-section">
   <h2>Stop leaving <span>money</span> on the table.</h2>
-  <p>We're taking a limited number of audit engagements this quarter. 20-minute intro call. We'll tell you the biggest leak in your operation — whether you hire us or not.</p>
+  <p>20-minute intro call. We'll tell you the biggest leak in your operation, whether you hire us or not.</p>
   <div class="cta-cards">
     <div class="cta-card">
       <h3>📅 Book a 20-Min Call</h3>
-      <p>Free. No deck. We'll listen for 10 minutes, then tell you the single biggest revenue leak we can spot — on the call.</p>
+      <p>Free. No deck. We'll listen for 10 minutes, then tell you the biggest revenue leak we can spot. On the call.</p>
       <a href="https://calendly.com/abhi-logbrief/30min" target="_blank" class="btn-primary" style="display:inline-flex;">Choose a Time →</a>
     </div>
     <div class="cta-card">
       <h3>⚡ Skip the Call</h3>
       <p>Email us the deposit confirmation and we'll start the audit within 24 hours. Name-your-price guarantee applies.</p>
-      <a href="mailto:kvdsouza@alumni.stanford.edu?subject=LogBrief%20Audit%20-%20Ready%20to%20Start" class="btn-secondary" style="display:inline-flex;">Start Now →</a>
+      <a href="mailto:kyle@logbrief.com,abhi@logbrief.com?subject=LogBrief%20Audit%20-%20Ready%20to%20Start" class="btn-secondary" style="display:inline-flex;">Start Now →</a>
     </div>
   </div>
 </section>
@@ -1297,7 +1409,6 @@
 <footer>
   <p style="margin-bottom: 0.5rem;"><strong style="color: var(--white);">LOGBRIEF</strong></p>
   <p>© 2026 LogBrief. Your tech partner in the trades.</p>
-  <p style="margin-top: 0.5rem;"><a href="mailto:kvdsouza@alumni.stanford.edu" style="color: var(--orange); text-decoration: none;">kvdsouza@alumni.stanford.edu</a></p>
 </footer>
 
 <script>
@@ -1306,29 +1417,145 @@
     item.classList.toggle('open');
   }
 
-  // Rotate hero trade keyword
-  const words = ['HVAC', 'Plumbing', 'Electrical', 'Roofing'];
-  let i = 0;
-  const el = document.querySelector('.rotate-word');
-  setInterval(() => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(-8px)';
-    setTimeout(() => {
-      i = (i + 1) % words.length;
-      el.textContent = words[i];
-      el.style.transition = 'none';
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(8px)';
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
+  // Rotate hero trade keyword — runs once, ends on "trades" with scribble underline
+  (function() {
+    var words = ['HVAC', 'Plumbing', 'Roofing', 'Electrical', 'Trades'];
+    var idx    = 0;
+    var el     = document.querySelector('.rotate-word');
+    if (!el) return;
+
+    // Use a text node so we can update text without destroying child elements
+    var textNode = document.createTextNode(words[0]);
+    el.innerHTML = '';
+    el.appendChild(textNode);
+
+    // Scribble SVG (hidden until final word)
+    var ns  = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', '0 0 200 28');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.style.cssText = 'position:absolute;bottom:-16px;left:-2px;width:calc(100% + 4px);height:26px;overflow:visible;pointer-events:none;opacity:0;';
+
+    var path = document.createElementNS(ns, 'path');
+    // Damped zigzag — big zig, medium zag, small zig, small zag (signature style)
+    path.setAttribute('d', 'M 2 4 L 196 4 L 48 11 L 156 17 L 88 23');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', '#f97316');
+    path.setAttribute('stroke-width', '4');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    svg.appendChild(path);
+    el.appendChild(svg);
+
+    el.style.position      = 'relative';
+    el.style.display       = 'inline-block';
+    el.style.textAlign     = 'center';
+    el.style.overflow      = 'visible';
+    el.style.whiteSpace    = 'nowrap';
+    el.style.verticalAlign = 'bottom';
+
+    // Sizer for width measurement
+    var sizer = document.createElement('span');
+    sizer.setAttribute('aria-hidden', 'true');
+    sizer.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;pointer-events:none;';
+    el.parentNode.appendChild(sizer);
+
+    function wordWidth(word) {
+      var cs = window.getComputedStyle(el);
+      sizer.style.fontSize      = cs.fontSize;
+      sizer.style.fontWeight    = cs.fontWeight;
+      sizer.style.fontFamily    = cs.fontFamily;
+      sizer.style.letterSpacing = cs.letterSpacing;
+      sizer.textContent = word;
+      return sizer.offsetWidth;
+    }
+
+    el.style.width = wordWidth(words[0]) + 'px';
+
+    var FADE      = 160;
+    var WIDTH_DUR = 220;
+    var INTERVAL  = 1700;
+    var timer     = null;
+
+    function drawScribble() {
+      var len = path.getTotalLength();
+      path.style.strokeDasharray  = len;
+      path.style.strokeDashoffset = len;
+      svg.style.opacity = '1';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          path.style.transition       = 'stroke-dashoffset 0.55s cubic-bezier(0.4,0,0.2,1)';
+          path.style.strokeDashoffset = '0';
         });
       });
-    }, 300);
-    el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-  }, 2500);
+    }
+
+    function swap() {
+      idx++;
+      var isFinal = idx === words.length - 1;
+      var next    = words[idx];
+      var nextW   = wordWidth(next);
+
+      // Fade out
+      el.style.transition = 'opacity ' + FADE + 'ms ease, transform ' + FADE + 'ms ease';
+      el.style.opacity    = '0';
+      el.style.transform  = 'translateY(-7px)';
+
+      setTimeout(function() {
+        // Swap text (preserves SVG child), glide width
+        textNode.nodeValue  = next;
+        el.style.transition = 'width ' + WIDTH_DUR + 'ms cubic-bezier(0.4,0,0.2,1)';
+        el.style.transform  = 'translateY(7px)';
+        el.style.width      = nextW + 'px';
+
+        setTimeout(function() {
+          el.style.transition = 'opacity ' + FADE + 'ms ease, transform ' + FADE + 'ms ease';
+          el.style.opacity    = '1';
+          el.style.transform  = 'translateY(0)';
+
+          if (isFinal) {
+            clearInterval(timer);
+            setTimeout(drawScribble, FADE + 80);
+          }
+        }, WIDTH_DUR);
+      }, FADE + 16);
+    }
+
+    timer = setInterval(swap, INTERVAL);
+  })();
 </script>
+
+
+
+
+
+<script id="nav-shrink">
+(function() {
+  var nav = document.querySelector('nav');
+  if (!nav) return;
+
+  function update() {
+    var progress = Math.min(Math.max(window.scrollY / 350, 0), 1);
+    var eased = 1 - Math.pow(1 - progress, 3);
+    var vw = window.innerWidth;
+    var targetW = Math.min(1148, vw - 32);
+    var inset = ((vw - targetW) / 2) * eased;
+    var radius = eased * 14;
+    var top = eased * 10;
+    var shadow = '0 ' + (eased * 4) + 'px ' + (eased * 24) + 'px rgba(0,0,0,' + (eased * 0.08) + ')';
+
+    nav.style.left = inset + 'px';
+    nav.style.right = inset + 'px';
+    nav.style.borderRadius = radius + 'px';
+    nav.style.top = top + 'px';
+    nav.style.boxShadow = shadow;
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+</script>
+
 </body>
 </html>
